@@ -1,0 +1,226 @@
+/* InterviewStart.css — Interview Buddy Dark Theme */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #0b0d1a;
+  font-family: 'Inter', sans-serif;
+  color: #f1f5f9;
+}
+
+.left {
+  width: 50%;
+  padding: 64px 56px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.right {
+  flex: 1;
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  background: radial-gradient(circle at 50% 50%, rgba(18,21,43,0.8) 0%, #0b0d1a 100%);
+}
+
+.headerBox {
+  margin-bottom: 48px;
+}
+
+.headerBox h2 {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg,#6366f1,#22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.headerBox p {
+  font-size: 15px;
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section h3 {
+  font-size: 11px;
+  font-weight: 800;
+  color: #6366f1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.options button {
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.options button:hover {
+  border-color: rgba(99,102,241,0.3);
+  color: #f1f5f9;
+  background: rgba(99,102,241,0.06);
+  transform: translateY(-2px);
+}
+
+.options button.active {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.4);
+  color: #818cf8;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.interviewCard {
+  background: rgba(26,31,58,0.4);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 32px;
+  backdrop-filter: blur(24px);
+}
+
+.interviewCard h2 {
+  font-size: 14px;
+  font-weight: 800;
+  color: #818cf8;
+  margin-bottom: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.interviewCard ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.interviewCard ul li {
+  font-size: 14px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.interviewCard ul li::before {
+  content: '→';
+  color: #22d3ee;
+  font-weight: 800;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.interviewCard ul li b {
+  color: #f1f5f9;
+  font-weight: 700;
+}
+
+.startBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.startBox input {
+  width: 100%;
+  padding: 16px;
+  background: rgba(11,13,26,0.5);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  color: #f1f5f9;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: all 0.2s;
+  text-align: center;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.startBox input::placeholder { color: #334155; text-transform: none; font-weight: 400; }
+
+.startBox input:focus {
+  border-color: #6366f1;
+  background: rgba(99,102,241,0.05);
+}
+
+.startBox button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg,#6366f1,#8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 10px 25px -5px rgba(99,102,241,0.4);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.startBox button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 15px 35px -5px rgba(99,102,241,0.5);
+}
+
+.startBox button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+@media (max-width: 1024px) {
+  .left { width: 100%; border-right: none; padding: 48px 32px; }
+  .right { padding: 48px 32px; }
+  .container { flex-direction: column; }
+}
+
+@media (max-width: 768px) {
+  .container { flex-direction: column; }
+  .left { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 32px 20px; }
+  .right { padding: 32px 20px; }
+}

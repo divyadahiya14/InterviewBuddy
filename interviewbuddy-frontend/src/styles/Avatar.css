@@ -1,0 +1,20 @@
+.avatar-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 180px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.speaking {
+  animation: pulse 0.6s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
