@@ -843,7 +843,7 @@ function LandingPage() {
           </div>
 
           <p className="text-[11px] text-white/40 font-medium font-mono">
-            © 2026 Interview Buddy. Crafted with premium cinematic glassmorphism. All rights reserved.
+            © 2026 InterviewBuddy. All rights reserved.
           </p>
         </div>
       </footer>
