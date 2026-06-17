@@ -153,12 +153,12 @@ function LandingPage() {
 
   // Original Features List (Preserved Exactly)
   const features = [
-    { icon: FileText, title: "Resume AI Practice", desc: "Upload your resume PDF to extract skills locally and practice with 5 highly customized AI questions." },
-    { icon: Bot, title: "Free AI Mock Interviews", desc: "Practice unlimited AI-driven interviews anytime with instant personalized feedback." },
-    { icon: Users, title: "Expert Human Interviews", desc: "Real sessions with industry professionals at affordable prices." },
-    { icon: Code2, title: "DSA & Coding", desc: "Structured problems from basics to advanced with live code execution." },
-    { icon: Layers, title: "System Design", desc: "Learn scalable architecture with real interview-based questions." },
-    { icon: BarChart3, title: "Performance Analytics", desc: "Track growth with detailed reports, scores, and improvement insights." },
+    { icon: FileText, title: "Resume AI Practice",      desc: "Upload your resume PDF to extract skills locally and practice with 5 highly customized AI questions.",  iconBg: "bg-amber-500/15",  iconBorder: "border-amber-500/30",  iconColor: "text-amber-400",  cardHover: "hover:border-amber-500/40" },
+    { icon: Bot,      title: "Free AI Mock Interviews", desc: "Practice unlimited AI-driven interviews anytime with instant personalized feedback.",                  iconBg: "bg-cyan-500/15",   iconBorder: "border-cyan-500/30",   iconColor: "text-cyan-400",   cardHover: "hover:border-cyan-500/40" },
+    { icon: Users,    title: "Expert Human Interviews", desc: "Real sessions with industry professionals at affordable prices.",                                       iconBg: "bg-violet-500/15", iconBorder: "border-violet-500/30", iconColor: "text-violet-400", cardHover: "hover:border-violet-500/40" },
+    { icon: Code2,    title: "DSA & Coding",            desc: "Structured problems from basics to advanced with live code execution.",                                  iconBg: "bg-emerald-500/15",iconBorder: "border-emerald-500/30",iconColor: "text-emerald-400",cardHover: "hover:border-emerald-500/40" },
+    { icon: Layers,   title: "System Design",           desc: "Learn scalable architecture with real interview-based questions.",                                       iconBg: "bg-rose-500/15",   iconBorder: "border-rose-500/30",   iconColor: "text-rose-400",   cardHover: "hover:border-rose-500/40" },
+    { icon: BarChart3,title: "Performance Analytics",  desc: "Track growth with detailed reports, scores, and improvement insights.",                                 iconBg: "bg-indigo-500/15", iconBorder: "border-indigo-500/30", iconColor: "text-indigo-400", cardHover: "hover:border-indigo-500/40" },
   ];
 
   // Original FAQs (Preserved Exactly)
@@ -540,10 +540,10 @@ function LandingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.05 }}
               onClick={() => handleRoleSelect("INTERVIEWEE")}
-              className="liquid-glass rounded-2xl p-6 md:p-8 space-y-4 border border-white/10 hover:border-brand/40 bg-white/[0.01] hover:bg-white/[0.02] cursor-pointer transition-all duration-300 shadow-xl"
+              className={`liquid-glass rounded-2xl p-6 md:p-8 space-y-4 border border-white/10 ${f.cardHover} bg-white/[0.01] hover:bg-white/[0.02] cursor-pointer transition-all duration-300 shadow-xl`}
             >
-              <div className="w-12 h-12 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center shadow-inner select-none">
-                <f.icon className="w-6 h-6 text-brand" />
+              <div className={`w-12 h-12 rounded-xl ${f.iconBg} border ${f.iconBorder} flex items-center justify-center shadow-inner select-none`}>
+                <f.icon className={`w-6 h-6 ${f.iconColor}`} />
               </div>
               <h3 className="text-base font-bold text-white tracking-wide">
                 {f.title}
