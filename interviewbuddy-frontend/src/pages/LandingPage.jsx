@@ -832,7 +832,7 @@ function LandingPage() {
 
       {/* FOOTER */}
       <footer className="relative z-10 border-t border-white/10 bg-black/40 backdrop-blur-xl select-none">
-        <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-6xl mx-auto px-6 py-3 flex flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-7 h-7 bg-gradient-to-br from-brand to-[#8b5cf6] rounded-lg flex items-center justify-center">
               <LogoMark className="w-4 h-4 text-white" />
