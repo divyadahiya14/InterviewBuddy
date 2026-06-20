@@ -21,6 +21,11 @@ const PORT = process.env.PORT || 8080;
 
 // Request Logger Middleware
 app.use((req, res, next) => {
+  const oldWriteHead = res.writeHead;
+  res.writeHead = function (...args) {
+    console.log(`[RESPONSE] ${req.method} ${req.originalUrl} - Status: ${res.statusCode} - Headers:`, JSON.stringify(res.getHeaders()));
+    return oldWriteHead.apply(this, args);
+  };
   console.log(`[REQUEST] ${req.method} ${req.originalUrl} - Origin: ${req.headers.origin || 'none'}`);
   next();
 });
@@ -46,7 +51,6 @@ app.use(cors({
     return callback(null, true);
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true,
   optionsSuccessStatus: 200
 }));
