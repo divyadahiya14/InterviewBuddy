@@ -11,8 +11,8 @@ export const getCandidateProfile = async (req, res) => {
       return res.status(403).json({ error: 'Forbidden: You do not have permission to view this profile' });
     }
 
-    const humanInterviews = await Booking.find({ intervieweeEmail: email }).sort({ _id: -1 });
-    const aiInterviews = await AIInterviewReport.find({ studentEmail: email }).sort({ timestamp: -1 });
+    const humanInterviews = await Booking.find({ intervieweeEmail: email }).sort({ _id: -1 }).limit(50);
+    const aiInterviews = await AIInterviewReport.find({ studentEmail: email }).sort({ timestamp: -1 }).limit(50);
 
     res.json({
       humanInterviews,
