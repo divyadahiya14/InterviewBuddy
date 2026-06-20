@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import API from "./services/api";
 
 // Pages that should show the moving wave/video background
-const WAVE_BG_ROUTES = ["/", "/interviewer-dashboard", "/candidate-profile"];
+const WAVE_BG_ROUTES = ["/", "/interviewer-dashboard"];
 
 // Inner component so useLocation works inside BrowserRouter
 function AppContent() {
