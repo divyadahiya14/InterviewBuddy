@@ -28,9 +28,11 @@ export const login = async (req, res) => {
     const token = generateToken(loginResponse.email, loginResponse.role, loginResponse.name);
 
     // Set HTTP-only cookie
+    const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false, // Change to true in production with HTTPS
+      secure: isProduction, // Set to true in production with HTTPS
+      sameSite: isProduction ? 'none' : 'lax',
       path: '/',
       maxAge: 86400000 // 1 day
     });
@@ -50,9 +52,11 @@ export const googleLogin = async (req, res) => {
     const token = generateToken(loginResponse.email, loginResponse.role, loginResponse.name);
 
     // Set HTTP-only cookie
+    const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('token', token, {
       httpOnly: true,
-      secure: false,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
       path: '/',
       maxAge: 86400000 // 1 day
     });
@@ -81,9 +85,11 @@ export const getMe = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   res.cookie('token', '', {
     httpOnly: true,
-    secure: false,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     path: '/',
     maxAge: 0
   });

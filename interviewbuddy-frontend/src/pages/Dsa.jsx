@@ -33,6 +33,7 @@ function Dsa() {
   const [activeTab, setActiveTab] = useState("code");
   const [result, setResult] = useState("");
   const [attempts, setAttempts] = useState(0);
+  const [hintCount, setHintCount] = useState(0);
   const [score, setScore] = useState(0);
   const [isPassed, setIsPassed] = useState(false);
   const [aiData, setAiData] = useState(() => {
@@ -71,6 +72,7 @@ function Dsa() {
       const hintText = data?.hint || (typeof data === "string" ? data : "⚠️ No hint received");
       
       setHint(hintText);
+      setHintCount(prev => prev + 1);
       toast(hintText, { 
          duration: 8000, 
          icon: '💡',
@@ -109,8 +111,9 @@ function Dsa() {
     if (aiData?.starterCode && !hasAppliedStarter) {
       setCode(aiData.starterCode);
       setHasAppliedStarter(true);
-      setLanguage("cpp");
-      setCodes({ cpp: aiData.starterCode });
+      const defaultLang = type === "Database" ? "sql" : type === "AIML" ? "python" : "cpp";
+      setLanguage(defaultLang);
+      setCodes({ [defaultLang]: aiData.starterCode });
     } else if (!aiData && !hasAppliedStarter) {
       const defaultLang = type === "Database" ? "sql" : type === "AIML" ? "python" : "cpp";
       setLanguage(defaultLang);
@@ -154,15 +157,50 @@ function Dsa() {
     }
     setLoadingFeedback(true);
     if (attempts === 0) { setLoadingFeedback(false); alert("❌ Please submit before ending test"); return; }
+    
+    // Deductions calculation
+    const incorrectSubmissions = Math.max(0, attempts - 1);
+    const deduction = (incorrectSubmissions * 3) + (hintCount * 2);
+
     if (!isPassed) {
+      // Save a failed attempt to the candidate profile so it shows up on the dashboard
+      try {
+        const studentEmail = localStorage.getItem("email");
+        if (studentEmail) {
+          await API.post("/ai/interview/save-report", {
+            studentEmail,
+            questionType: type || "DSA",
+            questionStatement: aiData?.statement,
+            starterCode: aiData?.starterCode || "",
+            submittedCode: code,
+            expectedSolution: aiData?.expectedSolution || aiData?.starterCode || "",
+            timeComplexity: "",
+            spaceComplexity: "",
+            codeQuality: "Error",
+            feedback: "❌ Please correct your code. You need to improve your DSA skills.",
+            score: 0,
+            attempts: attempts,
+            hintsUsed: hintCount,
+            difficulty: level || "easy",
+            language: language || "cpp",
+            status: "pending"
+          });
+        }
+      } catch (saveErr) {
+        console.error("Failed to save failed attempt to profile", saveErr);
+      }
+
       setLoadingFeedback(false);
-      navigate("/feedback", { state: { attempts, timeComplexity: "", spaceComplexity: "", codeQuality: "Error", feedback: "❌ Please correct your code. You need to improve your DSA skills." } });
+      navigate("/feedback", { state: { score: 0, attempts, timeComplexity: "", spaceComplexity: "", codeQuality: "Error", feedback: "❌ Please correct your code. You need to improve your DSA skills." } });
       return;
     }
     try {
       const res = await API.post("/ai/interview/feedback", { question: aiData?.statement, code, language });
       const feedback = res.data;
       
+      const baseScore = feedback.score || 100;
+      const adjustedScore = Math.max(0, baseScore - deduction);
+
       let savedReportId = null;
       try {
         const studentEmail = localStorage.getItem("email");
@@ -178,7 +216,9 @@ function Dsa() {
             spaceComplexity: feedback.spaceComplexity || "",
             codeQuality: feedback.codeQuality || "",
             feedback: feedback.feedback || "",
-            score: feedback.score || 0,
+            score: adjustedScore,
+            attempts: attempts,
+            hintsUsed: hintCount,
             difficulty: level || "easy",
             language: language || "cpp",
             status: (feedback.codeQuality === "Analysis Pending" || feedback.codeQuality === "Error") ? "pending" : "completed"
@@ -189,7 +229,7 @@ function Dsa() {
         console.error("Failed to save report to profile", saveErr);
       }
 
-      navigate("/feedback", { state: { ...feedback, attempts, timeComplexity: feedback.timeComplexity || "", spaceComplexity: feedback.spaceComplexity || "", reportId: savedReportId } });
+      navigate("/feedback", { state: { ...feedback, score: adjustedScore, attempts, timeComplexity: feedback.timeComplexity || "", spaceComplexity: feedback.spaceComplexity || "", reportId: savedReportId } });
     } catch (err) {
       console.error("Feedback generation failed, saving pending report...", err);
       let pendingReportId = null;
@@ -208,6 +248,8 @@ function Dsa() {
             codeQuality: "Analysis Pending",
             feedback: "AI report generation failed / quota exceeded. The system will regenerate your report in the background.",
             score: 0,
+            attempts: attempts,
+            hintsUsed: hintCount,
             difficulty: level || "easy",
             language: language || "cpp",
             status: "pending"
@@ -217,7 +259,7 @@ function Dsa() {
       } catch (saveErr) {
         console.error("Failed to save pending report in catch block", saveErr);
       }
-      navigate("/feedback", { state: { attempts, timeComplexity: "", spaceComplexity: "", codeQuality: "Analysis Pending", feedback: "AI report generation failed due to rate limits. Your report has been marked as pending and will regenerate in the background shortly.", reportId: pendingReportId } });
+      navigate("/feedback", { state: { score: 0, attempts, timeComplexity: "", spaceComplexity: "", codeQuality: "Analysis Pending", feedback: "AI report generation failed due to rate limits. Your report has been marked as pending and will regenerate in the background shortly.", reportId: pendingReportId } });
     } finally { setLoadingFeedback(false); }
   };
 

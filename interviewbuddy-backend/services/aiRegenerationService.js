@@ -81,7 +81,12 @@ const processTheoryReport = async (report) => {
   }
 
   report.feedback = response.feedback;
-  report.score = response.score;
+  const baseScore = response.score || 0;
+  const incorrectSubmissions = Math.max(0, (report.attempts || 1) - 1);
+  const hintsDeduction = (report.hintsUsed || 0) * 2;
+  const deduction = (incorrectSubmissions * 3) + hintsDeduction;
+  report.score = Math.max(0, baseScore - deduction);
+  
   report.scores = Array.isArray(response.scores) ? response.scores : [];
   report.status = 'completed';
   report.timestamp = new Date();
@@ -122,9 +127,15 @@ RULES:
 - Do NOT include explanation or comments of greeting.
 - Must exactly belong to the given question.`;
 
-    const response = await aiService.callAI(prompt);
-    expectedSol = cleanCodeBlock(response);
-    report.expectedSolution = expectedSol;
+    try {
+      const response = await aiService.callAI(prompt);
+      expectedSol = cleanCodeBlock(response);
+      report.expectedSolution = expectedSol;
+    } catch (solErr) {
+      console.warn(`Expected solution generation failed for report ID ${report.id}, using local fallback:`, solErr.message);
+      expectedSol = aiService.getLocalExpectedSolution(report.questionStatement, language, report.starterCode);
+      report.expectedSolution = expectedSol;
+    }
   }
 
   if (onlyExpectedSolution) {
@@ -184,7 +195,13 @@ RULES:
   report.spaceComplexity = feedbackResult.spaceComplexity;
   report.codeQuality = feedbackResult.codeQuality;
   report.feedback = feedbackResult.feedback;
-  report.score = feedbackResult.score;
+  
+  const baseScore = feedbackResult.score || 0;
+  const incorrectSubmissions = Math.max(0, (report.attempts || 1) - 1);
+  const hintsDeduction = (report.hintsUsed || 0) * 2;
+  const deduction = (incorrectSubmissions * 3) + hintsDeduction;
+  report.score = Math.max(0, baseScore - deduction);
+  
   report.status = 'completed';
   report.timestamp = new Date();
 
@@ -328,9 +345,20 @@ export const regeneratePendingReports = async () => {
         }
 
         // Save failure status
-        report.status = failedStatus;
-        report.timestamp = new Date();
-        await report.save();
+        // If we've retried several times and it's a quota failure, mark as completed placeholder
+        if (failedStatus === 'failed_quota' && (report.retryCount || 0) >= 3) {
+          report.status = 'completed';
+          report.feedback = report.feedback || 'AI report generation failed due to quota limits. This placeholder will be updated when credits are available.';
+          report.codeQuality = report.codeQuality || 'Error';
+          report.score = report.score != null ? report.score : 0;
+          report.timestamp = new Date();
+          await report.save();
+          console.log(`Report ID ${report.id} marked as completed placeholder after repeated quota failures.`);
+        } else {
+          report.status = failedStatus;
+          report.timestamp = new Date();
+          await report.save();
+        }
       }
     }
   } catch (outerEx) {

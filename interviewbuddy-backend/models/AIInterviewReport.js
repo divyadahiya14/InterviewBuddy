@@ -16,6 +16,8 @@ const AIInterviewReportSchema = new mongoose.Schema({
   language: { type: String },
   status: { type: String, default: 'pending' },
   retryCount: { type: Number, default: 0 },
+  attempts: { type: Number, default: 1 },
+  hintsUsed: { type: Number, default: 0 },
   scores: { type: [Number], default: [] },
   timestamp: { type: Date, default: Date.now }
 });

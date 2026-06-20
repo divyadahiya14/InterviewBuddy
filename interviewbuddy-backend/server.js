@@ -19,6 +19,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Request Logger Middleware
+app.use((req, res, next) => {
+  console.log(`[REQUEST] ${req.method} ${req.originalUrl} - Origin: ${req.headers.origin || 'none'}`);
+  next();
+});
+
 // Connect to MongoDB
 connectDB();
 
@@ -69,11 +75,20 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Internal Server Error' });
 });
 
-// Start Background Scheduler (every 10 seconds)
+// Start Background Scheduler (every 30 seconds) with protection against overlapping runs
+let _isRegenerating = false;
 setInterval(async () => {
-  console.log('[SCHEDULER] Running background pending reports check...');
-  await regeneratePendingReports();
-}, 10000);
+  if (_isRegenerating) return;
+  _isRegenerating = true;
+  try {
+    console.log('[SCHEDULER] Running background pending reports check...');
+    await regeneratePendingReports();
+  } catch (e) {
+    console.error('[SCHEDULER] Error during regeneration:', e.message || e);
+  } finally {
+    _isRegenerating = false;
+  }
+}, 30000);
 
 // Start listening
 app.listen(PORT, () => {

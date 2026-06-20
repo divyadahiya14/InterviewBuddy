@@ -117,6 +117,8 @@ export const saveReport = async (req, res) => {
       scores,
       difficulty,
       language,
+      attempts,
+      hintsUsed,
       status: requestStatus
     } = req.body;
 
@@ -135,6 +137,8 @@ export const saveReport = async (req, res) => {
       scores: Array.isArray(scores) ? scores : [],
       difficulty,
       language: language || '',
+      attempts: attempts != null ? Number(attempts) : 1,
+      hintsUsed: hintsUsed != null ? Number(hintsUsed) : 0,
       timestamp: new Date()
     });
 

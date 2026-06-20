@@ -505,6 +505,7 @@ const CandidateProfile = () => {
     if (!selectedAiReport) return false;
     const fbLower = selectedAiReport.feedback ? selectedAiReport.feedback.toLowerCase() : '';
     const cqLower = selectedAiReport.codeQuality ? selectedAiReport.codeQuality.toLowerCase() : '';
+    const statusLower = selectedAiReport.status ? selectedAiReport.status.toLowerCase() : '';
     return (
       !selectedAiReport.feedback ||
       fbLower.includes('rate limit') || 
@@ -515,7 +516,8 @@ const CandidateProfile = () => {
       fbLower.includes('unavailable') ||
       fbLower.includes('temporarily') ||
       cqLower === 'error' ||
-      cqLower === 'analysis pending'
+      cqLower === 'analysis pending' ||
+      ['failed_quota', 'failed_timeout', 'retrying', 'pending', 'processing'].includes(statusLower)
     );
   }, [selectedAiReport]);
 
@@ -549,8 +551,9 @@ const CandidateProfile = () => {
       }
     });
     aiInterviews.forEach(r => {
-      if ((r.status === "completed" || !r.status) && r.score != null) {
-        const ts = r.timestamp || r.createdAt;
+      // Treat any AI report with a timestamp or a non-null score as activity
+      const ts = r.timestamp || r.createdAt;
+      if (ts || r.score != null) {
         if (ts) {
           let dStr = getLocalDateString(new Date(ts));
           if (dStr > todayStr) dStr = todayStr;
@@ -594,7 +597,7 @@ const CandidateProfile = () => {
 
   const getScoreData = () => {
     const data = aiInterviews
-      .filter(r => (r.status === "completed" || !r.status) && r.score != null)
+      .filter(r => (r.timestamp || r.createdAt) || r.score != null)
       .map(r => ({
         date: new Date(r.timestamp || r.createdAt),
         score: r.score,
@@ -632,8 +635,9 @@ const CandidateProfile = () => {
         }
       });
       aiInterviews.forEach(r => {
-        if ((r.status === "completed" || !r.status) && r.score != null) {
-          const ts = r.timestamp || r.createdAt;
+        // Include pending/failed reports as activity if they have a timestamp or score
+        const ts = r.timestamp || r.createdAt;
+        if (ts || r.score != null) {
           if (ts) {
             let d = getLocalDateString(new Date(ts));
             if (d > todayStr) d = todayStr;
@@ -644,7 +648,7 @@ const CandidateProfile = () => {
       return counts;
     }, [humanInterviews, aiInterviews]);
 
-    const totalInterviews = humanInterviews.length + aiInterviews.filter(r => (r.status === "completed" || !r.status) && r.score != null).length;
+    const totalInterviews = humanInterviews.length + aiInterviews.filter(r => (r.timestamp || r.createdAt) || r.score != null).length;
     const avgScore = scores.length > 0 ? (scores.reduce((a, b) => a + b.score, 0) / scores.length).toFixed(1) : 0;
     
     // Category Breakdown
@@ -1467,7 +1471,7 @@ const CandidateProfile = () => {
 
               {/* Modal Body scrollable */}
               <div className="p-8 overflow-y-auto space-y-6 flex-1">
-                {selectedAiReport.status && selectedAiReport.status !== "completed" ? (
+                {selectedAiReport.status && ['pending', 'retrying', 'processing'].includes(selectedAiReport.status) ? (
                   <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
                     <div className="w-12 h-12 rounded-full border-[3px] border-brand/20 border-t-[#22d3ee] animate-spin" />
                     <div>
@@ -1475,6 +1479,24 @@ const CandidateProfile = () => {
                       <p className="text-xs text-white/50 max-w-sm mx-auto leading-relaxed">
                         Our model parser is compiling complexity benchmarks, accuracy rates, and feedback. This view will dynamically synchronize when completed.
                       </p>
+                    </div>
+                  </div>
+                ) : selectedAiReport.status && ['failed_quota', 'failed_timeout', 'error'].includes(selectedAiReport.status) ? (
+                  <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
+                    <div className="w-12 h-12 rounded-full border-[3px] border-rose-500/20 bg-rose-500/10 flex items-center justify-center text-rose-400 text-sm font-bold">
+                      !</div>
+                    <div>
+                      <h3 className="text-base font-extrabold text-white mb-1">AI Diagnostics Unavailable</h3>
+                      <p className="text-xs text-white/50 max-w-sm mx-auto leading-relaxed">
+                        This report was saved while the AI service was unavailable or rate limited. The system will retry in the background, or you can click Re-evaluate.
+                      </p>
+                      <button
+                        onClick={() => handleRetry(selectedAiReport.id)}
+                        disabled={retryingIds.has(selectedAiReport.id)}
+                        className="mt-4 px-4 py-2 bg-brand hover:brightness-[1.05] text-white rounded-lg text-xs font-bold transition-all"
+                      >
+                        {retryingIds.has(selectedAiReport.id) ? 'Retrying…' : 'Re-evaluate now'}
+                      </button>
                     </div>
                   </div>
                 ) : (
