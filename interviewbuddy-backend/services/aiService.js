@@ -635,6 +635,13 @@ Format:
 };
 
 export const evaluateAnswer = async (question, code, language) => {
+  if (isBoilerplateOrEmpty(code)) {
+    return JSON.stringify({
+      status: 'WRONG_ANSWER',
+      passed: false,
+      message: 'No solution code implemented. Please write your solution code before submitting.'
+    });
+  }
   const prompt = `You are a STRICT ONLINE JUDGE like LeetCode.
 
 ================ INPUTS ================
@@ -687,7 +694,16 @@ Return EXACTLY in this format:
   }
 };
 
-export const generateFeedback = async (question, code, language) => {
+export const generateFeedback = async (question, code, language, starterCode = '') => {
+  if (isBoilerplateOrEmpty(code, starterCode)) {
+    return JSON.stringify({
+      timeComplexity: '',
+      spaceComplexity: '',
+      codeQuality: 'Poor',
+      score: 0,
+      feedback: 'No solution code submitted, or the submitted code is empty/boilerplate. Please implement a valid solution.'
+    });
+  }
   const prompt = `You are a STRICT code evaluator used in an online coding platform like LeetCode.
 
 LANGUAGE:
@@ -763,7 +779,7 @@ Return ONLY valid JSON. No markdown, no explanation.
     return extracted;
   } catch (error) {
     console.error('Feedback generation failed, using local fallback:', error.message);
-    return generateLocalFallbackFeedback(question, code, language);
+    return generateLocalFallbackFeedback(question, code, language, starterCode);
   }
 };
 
@@ -914,21 +930,87 @@ Only return the hint text. No JSON. No explanation.`;
 
 // --- LOCAL FALLBACK HEURISTIC GENERATORS ---
 
-export const generateLocalFallbackFeedback = (question, code, language) => {
-  const trimmedCode = code ? code.trim() : '';
+export const isBoilerplateOrEmpty = (code, starterCode = '') => {
+  const clean = (c) => {
+    if (!c) return '';
+    return c
+      .replace(/\/\/.*|\/\*[\s\S]*?\*\/|#.*/g, '') // remove comments
+      .replace(/\s+/g, '')                         // remove all whitespace
+      .toLowerCase();
+  };
+
+  const cleanSubmitted = clean(code);
+  const cleanStarter = clean(starterCode);
+
+  // Case 1: If cleanSubmitted is empty or too short (e.g. fewer than 10 characters)
+  if (!cleanSubmitted || cleanSubmitted.length < 10) {
+    return true;
+  }
+
+  // Case 2: If cleanSubmitted matches cleanStarter exactly
+  if (cleanStarter && cleanSubmitted === cleanStarter) {
+    return true;
+  }
+
+  // Case 3: If cleanSubmitted is just a basic template (with empty function body)
+  let stripped = cleanSubmitted;
   
-  // Clean comments and whitespace to evaluate code content
-  const withoutComments = trimmedCode.replace(/\/\/.*|\/\*[\s\S]*?\*\/|#.*/g, '').trim();
-  
-  if (!withoutComments || withoutComments.length < 10) {
+  // Strip standard C++ headers and using namespace
+  stripped = stripped
+    .replace(/#include<[a-zA-Z0-9.]+>/g, '')
+    .replace(/usingnamespacestd;/g, '');
+    
+  // Strip Java standard packages / class wrapper
+  stripped = stripped
+    .replace(/import\s+[a-zA-Z0-9._*]+;/g, '')
+    .replace(/package\s+[a-zA-Z0-9._]+;/g, '');
+
+  // Strip empty functions
+  stripped = stripped
+    .replace(/voidsolve\(\)\{\}/g, '')
+    .replace(/intmain\(\)\{\}/g, '')
+    .replace(/intmain\(\)\{return0;\}/g, '')
+    .replace(/voidmain\(\)\{\}/g, '')
+    .replace(/publicstaticvoidmain\(string\[\]args\)\{\}/g, '');
+    
+  // Strip class wrappers with empty methods if they are identical to empty templates
+  if (cleanStarter) {
+    const strippedStarter = cleanStarter
+      .replace(/#include<[a-zA-Z0-9.]+>/g, '')
+      .replace(/usingnamespacestd;/g, '')
+      .replace(/import\s+[a-zA-Z0-9._*]+;/g, '')
+      .replace(/package\s+[a-zA-Z0-9._]+;/g, '')
+      .replace(/voidsolve\(\)\{\}/g, '')
+      .replace(/intmain\(\)\{\}/g, '')
+      .replace(/intmain\(\)\{return0;\}/g, '')
+      .trim();
+      
+    if (stripped === strippedStarter) {
+      return true;
+    }
+  }
+
+  // If after stripping all headers and empty solve/main blocks, the code is empty, then it's boilerplate
+  if (!stripped.trim() || stripped.trim() === '{}') {
+    return true;
+  }
+
+  return false;
+};
+
+export const generateLocalFallbackFeedback = (question, code, language, starterCode = '') => {
+  if (isBoilerplateOrEmpty(code, starterCode)) {
     return JSON.stringify({
       timeComplexity: '',
       spaceComplexity: '',
       codeQuality: 'Poor',
       score: 0,
-      feedback: 'No solution code submitted, or the submitted code is empty/meaningless. Please implement a valid solution.'
+      feedback: 'No solution code submitted, or the submitted code is empty/boilerplate. Please implement a valid solution.'
     });
   }
+  
+  const trimmedCode = code ? code.trim() : '';
+  const withoutComments = trimmedCode.replace(/\/\/.*|\/\*[\s\S]*?\*\/|#.*/g, '').trim();
 
   // Count code constructs
   const codeLower = withoutComments.toLowerCase();

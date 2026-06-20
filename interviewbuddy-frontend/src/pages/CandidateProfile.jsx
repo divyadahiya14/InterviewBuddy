@@ -446,12 +446,12 @@ const CandidateProfile = () => {
     setDeletingId(id);
     try {
       if (type === "ai") {
-        await API.delete(`/candidate/report/${id}`);
+        await API.post(`/candidate/report/${id}/delete`);
         setAiInterviews(prev => prev.filter(r => r.id !== id));
         if (selectedAiReport?.id === id) setSelectedAiReport(null);
         toast.success("AI report deleted successfully.");
       } else {
-        await API.delete(`/candidate/booking/${id}`);
+        await API.post(`/candidate/booking/${id}/delete`);
         setHumanInterviews(prev => prev.filter(b => b.id !== id));
         toast.success("Interview booking deleted successfully.");
       }

@@ -151,7 +151,8 @@ RULES:
   const feedbackJson = await aiService.generateFeedback(
     report.questionStatement,
     report.submittedCode,
-    language
+    language,
+    report.starterCode
   );
 
   // Parse feedback
