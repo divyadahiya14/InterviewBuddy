@@ -181,6 +181,333 @@ const fallbackEasyQuestions = [
   }
 ];
 
+const fallbackAIMLEasyQuestions = [
+  {
+    question: "Mean and Median of Features",
+    statement: "Write a Python function that takes a list of numerical features and returns their mean and median as a tuple: (mean, median).",
+    example1: { input: "features = [1, 3, 3, 6, 7, 8, 9]", output: "(5.29, 6.0)" },
+    example2: { input: "features = [1, 2, 3, 4]", output: "(2.5, 2.5)" },
+    constraints: ["len(features) >= 1", "All features are real numbers"],
+    starterCode: "def mean_median(features):\n    pass",
+    expectedSolution: "def mean_median(features):\n    n = len(features)\n    mean = sum(features) / n\n    sorted_f = sorted(features)\n    if n % 2 != 0:\n        median = float(sorted_f[n // 2])\n    else:\n        median = (sorted_f[(n // 2) - 1] + sorted_f[n // 2]) / 2.0\n    return (round(mean, 2), round(median, 2))"
+  },
+  {
+    question: "Min-Max Feature Scaling",
+    statement: "Implement a function that performs Min-Max normalization on a 1D list of numerical features. The output should be values between 0.0 and 1.0.",
+    example1: { input: "features = [10, 20, 30, 40, 50]", output: "[0.0, 0.25, 0.5, 0.75, 1.0]" },
+    example2: { input: "features = [1, 2, 3]", output: "[0.0, 0.5, 1.0]" },
+    constraints: ["1 <= len(features) <= 1000", "Min and Max of list must not be equal"],
+    starterCode: "def normalize_data(features):\n    pass",
+    expectedSolution: "def normalize_data(features):\n    mn = min(features)\n    mx = max(features)\n    return [float(x - mn) / (mx - mn) for x in features]"
+  },
+  {
+    question: "Accuracy Score Calculation",
+    statement: "Implement a function to calculate the accuracy of a classification model. Given y_true (true targets) and y_pred (predicted targets) lists of identical length, return the accuracy as a float between 0.0 and 1.0.",
+    example1: { input: "y_true = [1, 0, 1, 1], y_pred = [1, 0, 0, 1]", output: "0.75" },
+    example2: { input: "y_true = [0, 0], y_pred = [1, 1]", output: "0.0" },
+    constraints: ["len(y_true) == len(y_pred)", "len(y_true) >= 1"],
+    starterCode: "def accuracy_score(y_true, y_pred):\n    pass",
+    expectedSolution: "def accuracy_score(y_true, y_pred):\n    correct = sum(1 for yt, yp in zip(y_true, y_pred) if yt == yp)\n    return float(correct) / len(y_true)"
+  },
+  {
+    question: "Mean Squared Error (MSE)",
+    statement: "Write a function to compute the Mean Squared Error (MSE) between actual targets and predicted outputs.",
+    example1: { input: "actual = [3, -0.5, 2, 7], predicted = [2.5, 0.0, 2, 8]", output: "0.375" },
+    example2: { input: "actual = [1, 2], predicted = [1, 2]", output: "0.0" },
+    constraints: ["len(actual) == len(predicted)", "len(actual) >= 1"],
+    starterCode: "def mean_squared_error(actual, predicted):\n    pass",
+    expectedSolution: "def mean_squared_error(actual, predicted):\n    squared_errors = [(act - pred) ** 2 for act, pred in zip(actual, predicted)]\n    return sum(squared_errors) / len(actual)"
+  },
+  {
+    question: "LeakyReLU Activation",
+    statement: "Write a Python function to apply the LeakyReLU activation function element-wise on a list of floating-point values. The formula is max(alpha * x, x), where alpha defaults to 0.01.",
+    example1: { input: "x = [-2, 0, 3], alpha = 0.1", output: "[-0.2, 0.0, 3.0]" },
+    example2: { input: "x = [-5, 10], alpha = 0.01", output: "[-0.05, 10.0]" },
+    constraints: ["len(x) >= 1", "alpha is a positive floating point constant"],
+    starterCode: "def leaky_relu(x, alpha=0.01):\n    pass",
+    expectedSolution: "def leaky_relu(x, alpha=0.01):\n    return [float(alpha * val) if val < 0 else float(val) for val in x]"
+  }
+];
+
+const fallbackAIMLMediumQuestions = [
+  {
+    question: "k-NN Euclidean Distance",
+    statement: "Given a query point (tuple of coordinates) and a list of database points (tuples of coordinates), compute the Euclidean distance from the query point to each point and return the index of the closest point (0-indexed).",
+    example1: { input: "query = (0, 0), points = [(3, 4), (1, 1), (5, 12)]", output: "1" },
+    example2: { input: "query = (1, 2), points = [(2, 3), (1, 10)]", output: "0" },
+    constraints: ["len(points) >= 1", "All points have same dimension"],
+    starterCode: "def closest_point(query, points):\n    pass",
+    expectedSolution: "import math\ndef closest_point(query, points):\n    min_dist = float('inf')\n    closest_idx = -1\n    for idx, pt in enumerate(points):\n        dist = math.sqrt(sum((q - p) ** 2 for q, p in zip(query, pt)))\n        if dist < min_dist:\n            min_dist = dist\n            closest_idx = idx\n    return closest_idx"
+  },
+  {
+    question: "Sigmoid and its Derivative",
+    statement: "Implement a function that calculates the sigmoid activation function and its derivative. Given input x, return a tuple: (sigmoid(x), sigmoid_derivative(x)).",
+    example1: { input: "x = 0", output: "(0.5, 0.25)" },
+    example2: { input: "x = 2", output: "(0.88, 0.11)" },
+    constraints: ["x is a real number"],
+    starterCode: "def sigmoid_and_derivative(x):\n    pass",
+    expectedSolution: "import math\ndef sigmoid_and_derivative(x):\n    s = 1.0 / (1.0 + math.exp(-x))\n    ds = s * (1.0 - s)\n    return (round(s, 2), round(ds, 2))"
+  },
+  {
+    question: "One-Hot Encoding",
+    statement: "Given a list of labels (strings or integers) and a list of unique vocabulary classes in a specified order, write a function that outputs a 2D one-hot encoded representation (list of lists of 0s and 1s).",
+    example1: { input: "labels = ['cat', 'dog', 'cat'], classes = ['cat', 'dog', 'bird']", output: "[[1, 0, 0], [0, 1, 0], [1, 0, 0]]" },
+    example2: { input: "labels = [0, 2], classes = [0, 1, 2]", output: "[[1, 0, 0], [0, 0, 1]]" },
+    constraints: ["All labels exist in classes list", "classes contains distinct entries"],
+    starterCode: "def one_hot_encode(labels, classes):\n    pass",
+    expectedSolution: "def one_hot_encode(labels, classes):\n    class_map = {cls: idx for idx, cls in enumerate(classes)}\n    result = []\n    for label in labels:\n        encoded = [0] * len(classes)\n        if label in class_map:\n            encoded[class_map[label]] = 1\n        result.append(encoded)\n    return result"
+  },
+  {
+    question: "Z-Score Standardization",
+    statement: "Standardize a feature list by subtracting the mean and dividing by the standard deviation. Return the standardized list of floats. If standard deviation is 0, return the original list.",
+    example1: { input: "features = [2, 4, 4, 4, 5, 5, 7, 9]", output: "[-1.5, -0.5, -0.5, -0.5, 0.0, 0.0, 1.0, 2.0]" },
+    example2: { input: "features = [1, 1]", output: "[1.0, 1.0]" },
+    constraints: ["len(features) >= 1"],
+    starterCode: "def standardize(features):\n    pass",
+    expectedSolution: "import math\ndef standardize(features):\n    n = len(features)\n    if n <= 1: return [float(x) for x in features]\n    mean = sum(features) / n\n    variance = sum((x - mean) ** 2 for x in features) / n\n    std_dev = math.sqrt(variance)\n    if std_dev == 0: return [float(x) for x in features]\n    return [round((x - mean) / std_dev, 2) for x in features]"
+  },
+  {
+    question: "F1-Score Calculation",
+    statement: "Compute the F1-score given True Positives (TP), False Positives (FP), and False Negatives (FN). Return the F1 score rounded to 2 decimal places. If TP + FP == 0 or TP + FN == 0, return 0.0.",
+    example1: { input: "tp = 10, fp = 3, fn = 2", output: "0.8" },
+    example2: { input: "tp = 0, fp = 0, fn = 5", output: "0.0" },
+    constraints: ["tp >= 0", "fp >= 0", "fn >= 0"],
+    starterCode: "def f1_score(tp, fp, fn):\n    pass",
+    expectedSolution: "def f1_score(tp, fp, fn):\n    if tp == 0: return 0.0\n    precision = tp / (tp + fp)\n    recall = tp / (tp + fn)\n    if precision + recall == 0: return 0.0\n    f1 = 2 * (precision * recall) / (precision + recall)\n    return round(f1, 2)"
+  }
+];
+
+const fallbackAIMLHardQuestions = [
+  {
+    question: "Linear Regression Gradient Descent Update",
+    statement: "Compute the updated weights (w) and bias (b) for a simple 1D linear regression model after one step of gradient descent. Given features x, actual targets y, current weight w, current bias b, and learning rate lr, return (updated_w, updated_b).",
+    example1: { input: "x = [1, 2], y = [3, 5], w = 1.0, b = 0.5, lr = 0.1", output: "(1.55, 0.75)" },
+    example2: { input: "x = [0], y = [1], w = 0.0, b = 0.0, lr = 0.1", output: "(0.0, 0.1)" },
+    constraints: ["len(x) == len(y)", "len(x) >= 1", "lr > 0"],
+    starterCode: "def gradient_descent_step(x, y, w, b, lr):\n    pass",
+    expectedSolution: "def gradient_descent_step(x, y, w, b, lr):\n    n = len(x)\n    grad_w = 0.0\n    grad_b = 0.0\n    for xi, yi in zip(x, y):\n        pred = w * xi + b\n        err = pred - yi\n        grad_w += err * xi\n        grad_b += err\n    grad_w = (2 / n) * grad_w\n    grad_b = (2 / n) * grad_b\n    new_w = w - lr * grad_w\n    new_b = b - lr * grad_b\n    return (round(new_w, 2), round(new_b, 2))"
+  },
+  {
+    question: "Stable Softmax Function",
+    statement: "Implement the softmax function on a 1D list of floating point values. It must be numerically stable (i.e. subtract the maximum value in the list before exponentiation to prevent overflow). Return list of probabilities.",
+    example1: { input: "logits = [1, 2, 3]", output: "[0.09, 0.24, 0.67]" },
+    example2: { input: "logits = [1000, 1001, 999]", output: "[0.24, 0.67, 0.09]" },
+    constraints: ["len(logits) >= 1"],
+    starterCode: "def stable_softmax(logits):\n    pass",
+    expectedSolution: "import math\ndef stable_softmax(logits):\n    mx = max(logits)\n    exp_vals = [math.exp(x - mx) for x in logits]\n    sum_exp = sum(exp_vals)\n    return [round(ev / sum_exp, 2) for ev in exp_vals]"
+  },
+  {
+    question: "K-Means Centroid Update",
+    statement: "Given a list of data points (2D coordinates) and their corresponding cluster labels (list of integers matching data points index), calculate and return the updated centroids list of tuples sorted by cluster index.",
+    example1: { input: "points = [(1, 2), (2, 3), (10, 12)], labels = [0, 0, 1]", output: "[(1.5, 2.5), (10.0, 12.0)]" },
+    example2: { input: "points = [(0, 0), (1, 1)], labels = [1, 0]", output: "[(1.0, 1.0), (0.0, 0.0)]" },
+    constraints: ["len(points) == len(labels)", "len(points) >= 1", "All labels >= 0"],
+    starterCode: "def update_centroids(points, labels):\n    pass",
+    expectedSolution: "def update_centroids(points, labels):\n    clusters = {}\n    for pt, lbl in zip(points, labels):\n        if lbl not in clusters:\n            clusters[lbl] = []\n        clusters[lbl].append(pt)\n    centroids = []\n    for lbl in sorted(clusters.keys()):\n        pts = clusters[lbl]\n        avg_x = sum(p[0] for p in pts) / len(pts)\n        avg_y = sum(p[1] for p in pts) / len(pts)\n        centroids.append((round(avg_x, 2), round(avg_y, 2)))\n    return centroids"
+  },
+  {
+    question: "Binary Cross-Entropy Loss",
+    statement: "Compute the Binary Cross-Entropy Loss given true target list (y_true) containing 0s and 1s, and predicted probability list (y_pred). Clip predicted values to [1e-15, 1 - 1e-15] to prevent log(0) domain errors.",
+    example1: { input: "y_true = [1, 0, 1], y_pred = [0.9, 0.1, 0.8]", output: "0.14" },
+    example2: { input: "y_true = [1, 0], y_pred = [0, 1]", output: "34.54" },
+    constraints: ["len(y_true) == len(y_pred)", "len(y_true) >= 1"],
+    starterCode: "def bce_loss(y_true, y_pred):\n    pass",
+    expectedSolution: "import math\ndef bce_loss(y_true, y_pred):\n    loss = 0.0\n    n = len(y_true)\n    for yt, yp in zip(y_true, y_pred):\n        yp = max(1e-15, min(1.0 - 1e-15, yp))\n        loss += -1 * (yt * math.log(yp) + (1 - yt) * math.log(1 - yp))\n    return round(loss / n, 2)"
+  },
+  {
+    question: "L2 Regularization Gradient",
+    statement: "Compute the gradient of L2 regularization (Ridge regression penalty) with respect to a weight list. Given weights list (w) and lambda penalty factor, return the regularization gradient array [lambda * wi for each weight].",
+    example1: { input: "w = [0.5, -1.0, 2.0], lmbda = 0.1", output: "[0.05, -0.1, 0.2]" },
+    example2: { input: "w = [10.0], lmbda = 0.5", output: "[5.0]" },
+    constraints: ["len(w) >= 1", "lmbda >= 0"],
+    starterCode: "def l2_gradient(w, lmbda):\n    pass",
+    expectedSolution: "def l2_gradient(w, lmbda):\n    return [round(lmbda * val, 2) for val in w]"
+  }
+];
+
+const fallbackDBEasyQuestions = [
+  {
+    question: "Select Active Users",
+    statement: "Write a SQL query to select all columns for users from the 'Users' table who have an active status. Order by 'name' alphabetically.",
+    example1: { input: "Users = [(1,'Alice','active'),(2,'Bob','inactive')]", output: "[(1,'Alice','active')]" },
+    example2: { input: "Users = []", output: "No records" },
+    constraints: ["Return all columns (*)", "Filter where status = 'active'"],
+    starterCode: "SELECT * FROM Users ...",
+    expectedSolution: "SELECT * FROM Users WHERE status = 'active' ORDER BY name ASC;"
+  },
+  {
+    question: "Count Orders by Customer",
+    statement: "Write a SQL query to count the total number of orders placed by each customer. Return customer_id and the order count as 'total_orders'. Group by customer_id.",
+    example1: { input: "Orders = [(1, 101), (2, 101), (3, 102)]", output: "[(101, 2), (102, 1)]" },
+    example2: { input: "Orders = []", output: "No records" },
+    constraints: ["Group results by customer_id"],
+    starterCode: "SELECT customer_id, COUNT(*) ...",
+    expectedSolution: "SELECT customer_id, COUNT(id) AS total_orders FROM Orders GROUP BY customer_id;"
+  },
+  {
+    question: "Find Employees with High Salaries",
+    statement: "Write a SQL query to find the names of all employees from the 'Employees' table who earn more than $80,000 per year.",
+    example1: { input: "Employees = [(1,'John',90000),(2,'Jane',75000)]", output: "['John']" },
+    example2: { input: "Employees = []", output: "No records" },
+    constraints: ["Return only the employee name column"],
+    starterCode: "SELECT name FROM Employees ...",
+    expectedSolution: "SELECT name FROM Employees WHERE salary > 80000;"
+  },
+  {
+    question: "List Products by Price",
+    statement: "Write a SQL query to retrieve product names and prices from the 'Products' table where price is at least $50. Sort by price descending.",
+    example1: { input: "Products = [(1,'Shoes',60),(2,'Hat',20)]", output: "[('Shoes',60)]" },
+    example2: { input: "Products = []", output: "No records" },
+    constraints: ["Filter where price >= 50", "Sort descending"],
+    starterCode: "SELECT name, price FROM Products ...",
+    expectedSolution: "SELECT name, price FROM Products WHERE price >= 50 ORDER BY price DESC;"
+  },
+  {
+    question: "Find Customer Emails",
+    statement: "Write a SQL query to select all unique email addresses of customers who registered in the year 2026 from the 'Customers' table.",
+    example1: { input: "Customers = [('A','a@a.com','2026-01-01'),('B','a@a.com','2026-02-01')]", output: "['a@a.com']" },
+    example2: { input: "Customers = []", output: "No records" },
+    constraints: ["Emails must be unique (distinct)"],
+    starterCode: "SELECT DISTINCT email FROM Customers ...",
+    expectedSolution: "SELECT DISTINCT email FROM Customers WHERE registration_date >= '2026-01-01' AND registration_date <= '2026-12-31';"
+  }
+];
+
+const fallbackDBMediumQuestions = [
+  {
+    question: "Top Spent Customers",
+    statement: "Write a SQL query to join the 'Customers' (id, name) and 'Orders' (id, customer_id, amount) tables to find the names of the top 3 customers who spent the most money overall.",
+    example1: { input: "Customers = [(1,'A'),(2,'B')], Orders = [(1,1,100),(2,1,200)]", output: "Customer A, total 300" },
+    example2: { input: "Customers = [(1,'A')], Orders = []", output: "No results" },
+    constraints: ["Return customer name and total spend", "Order descending by spend"],
+    starterCode: "SELECT c.name, SUM(o.amount) ...",
+    expectedSolution: "SELECT c.name, SUM(o.amount) AS total_spent FROM Customers c JOIN Orders o ON c.id = o.customer_id GROUP BY c.id, c.name ORDER BY total_spent DESC LIMIT 3;"
+  },
+  {
+    question: "Department Average Salary",
+    statement: "Write a SQL query to find departments in the 'Employees' table that have an average salary of more than $60,000. Return department name and the average salary.",
+    example1: { input: "Employees = [(1,'A',70000,'IT'),(2,'B',50000,'IT'),(3,'C',40000,'HR')]", output: "[('IT', 60000)]" },
+    example2: { input: "Employees = []", output: "No results" },
+    constraints: ["Group by department", "Filter groups using HAVING"],
+    starterCode: "SELECT department, AVG(salary) ...",
+    expectedSolution: "SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) > 60000;"
+  },
+  {
+    question: "Second Highest Salary",
+    statement: "Write a SQL query to retrieve the second highest salary from the 'Employees' table. If there is no second highest, the query should return NULL.",
+    example1: { input: "Employees = [(1,50000),(2,90000),(3,80000)]", output: "80000" },
+    example2: { input: "Employees = [(1,50000)]", output: "null" },
+    constraints: ["Handle distinct salary values"],
+    starterCode: "SELECT DISTINCT salary FROM Employees ...",
+    expectedSolution: "SELECT DISTINCT salary FROM Employees ORDER BY salary DESC LIMIT 1 OFFSET 1;"
+  },
+  {
+    question: "Identify Duplicate Emails",
+    statement: "Write a SQL query to find all duplicate email addresses from the 'Contacts' table. Return the email and the duplicate count.",
+    example1: { input: "Contacts = [('a@a.com'),('b@b.com'),('a@a.com')]", output: "[('a@a.com', 2)]" },
+    example2: { input: "Contacts = [('a@a.com')]", output: "No results" },
+    constraints: ["Filter duplicate groups"],
+    starterCode: "SELECT email, COUNT(*) ...",
+    expectedSolution: "SELECT email, COUNT(email) AS count FROM Contacts GROUP BY email HAVING COUNT(email) > 1;"
+  },
+  {
+    question: "Monthly Sales Revenue",
+    statement: "Write a SQL query to compute the total sales revenue generated in each month of the year 2026. Return the month number (1-12) and total revenue.",
+    example1: { input: "Orders = [(1, 100, '2026-01-15'), (2, 200, '2026-02-10')]", output: "[(1, 100), (2, 200)]" },
+    example2: { input: "Orders = []", output: "No results" },
+    constraints: ["Filter by year 2026", "Group by month"],
+    starterCode: "SELECT MONTH(order_date) ...",
+    expectedSolution: "SELECT EXTRACT(MONTH FROM order_date) AS month, SUM(amount) AS total_revenue FROM Orders WHERE order_date >= '2026-01-01' AND order_date <= '2026-12-31' GROUP BY EXTRACT(MONTH FROM order_date) ORDER BY month ASC;"
+  }
+];
+
+const fallbackDBHardQuestions = [
+  {
+    question: "Consecutive Login Days",
+    statement: "Write a SQL query to find the user_ids of users who logged in on 3 or more consecutive days. Assume a table 'Logins' with columns (id, user_id, login_date).",
+    example1: { input: "Logins = [(1, 1, '2026-01-01'), (2, 1, '2026-01-02'), (3, 1, '2026-01-03')]", output: "[1]" },
+    example2: { input: "Logins = [(1, 1, '2026-01-01'), (2, 1, '2026-01-03')]", output: "No results" },
+    constraints: ["Return distinct user_ids"],
+    starterCode: "SELECT DISTINCT user_id FROM ...",
+    expectedSolution: "SELECT DISTINCT user_id FROM (SELECT user_id, login_date, LEAD(login_date, 1) OVER (PARTITION BY user_id ORDER BY login_date) AS next_date, LEAD(login_date, 2) OVER (PARTITION BY user_id ORDER BY login_date) AS next_next_date FROM Logins) t WHERE DATEDIFF(next_date, login_date) = 1 AND DATEDIFF(next_next_date, next_date) = 1;"
+  },
+  {
+    question: "Rank Salary within Department",
+    statement: "Write a SQL query to rank employee salaries within their respective departments. The highest salary should rank 1st. Return department name, employee name, salary, and their dense rank.",
+    example1: { input: "Employees = [('Sales','A',9000),('Sales','B',9000),('IT','C',10000)]", output: "[('Sales','A',9000,1),('Sales','B',9000,1),('IT','C',10000,1)]" },
+    example2: { input: "Employees = []", output: "No results" },
+    constraints: ["Use dense ranking partition"],
+    starterCode: "SELECT department, name, salary, DENSE_RANK() ...",
+    expectedSolution: "SELECT department, name, salary, DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank FROM Employees;"
+  },
+  {
+    question: "Cumulative Sales Revenue",
+    statement: "Write a SQL query to calculate the cumulative (running) total of sales revenue over time for the year 2026. Return order_date, daily_revenue, and running_total.",
+    example1: { input: "Orders = [('2026-01-01',100),('2026-01-02',150)]", output: "[('2026-01-01',100,100),('2026-01-02',150,250)]" },
+    example2: { input: "Orders = []", output: "No results" },
+    constraints: ["Aggregate and order partition"],
+    starterCode: "SELECT order_date, SUM(amount) ...",
+    expectedSolution: "SELECT order_date, SUM(amount) AS daily_revenue, SUM(SUM(amount)) OVER (ORDER BY order_date) AS running_total FROM Orders WHERE order_date >= '2026-01-01' AND order_date <= '2026-12-31' GROUP BY order_date ORDER BY order_date ASC;"
+  },
+  {
+    question: "Identify Non-Purchasing Customers",
+    statement: "Write a SQL query to find customers who registered but have never placed an order. Return their name and email from the 'Customers' table. Do not use subqueries.",
+    example1: { input: "Customers = [(1,'A','a@a.com')], Orders = []", output: "[('A','a@a.com')]" },
+    example2: { input: "Customers = [(1,'A','a@a.com')], Orders = [(1,1,50)]", output: "No results" },
+    constraints: ["Use LEFT JOIN and IS NULL conditions"],
+    starterCode: "SELECT c.name, c.email FROM Customers c ...",
+    expectedSolution: "SELECT c.name, c.email FROM Customers c LEFT JOIN Orders o ON c.id = o.customer_id WHERE o.id IS NULL;"
+  },
+  {
+    question: "Managers with Direct Reports",
+    statement: "Write a SQL query to find managers who manage at least 5 direct reporting employees. Return their names from the 'Employees' table. (Assume employee manager_id links to employee id).",
+    example1: { input: "Employees = [(1,'Manager',Null),(2,'E1',1),(3,'E2',1),(4,'E3',1),(5,'E4',1),(6,'E5',1)]", output: "['Manager']" },
+    example2: { input: "Employees = []", output: "No results" },
+    constraints: ["Aggregate self join"],
+    starterCode: "SELECT m.name FROM Employees m ...",
+    expectedSolution: "SELECT m.name FROM Employees e JOIN Employees m ON e.manager_id = m.id GROUP BY m.id, m.name HAVING COUNT(e.id) >= 5;"
+  }
+];
+
+const fallbackTheoryEasyQuestions = [
+  "Explain the difference between a process and a thread.",
+  "What is encapsulation in Object-Oriented Programming (OOP)?",
+  "Explain the primary purpose of a primary key in a database.",
+  "What are the main differences between TCP and UDP protocols?",
+  "What does the 'this' keyword refer to in JavaScript or Java OOP?",
+  "What is the difference between compiler and interpreter languages?",
+  "What is the role and purpose of the Domain Name System (DNS)?",
+  "Explain the programming concept of recursion.",
+  "What is a foreign key in database relationships?",
+  "Describe the difference between local and global variables."
+];
+
+const fallbackTheoryMediumQuestions = [
+  "What are the ACID properties in database transactions?",
+  "Explain the concept and significance of Virtual Memory in Operating Systems.",
+  "How does method overriding differ from method overloading in OOP?",
+  "Describe the three-way handshake process in TCP connections.",
+  "What is the difference between REST APIs and SOAP protocols?",
+  "Explain what SQL injection is and how to prevent it in queries.",
+  "What is garbage collection in programming languages and how does it work?",
+  "Explain the difference between stack and heap memory allocations.",
+  "What are abstract classes and interfaces in OOP, and how do they differ?",
+  "Explain the role of indexing in database search optimization."
+];
+
+const fallbackTheoryHardQuestions = [
+  "Explain the CAP Theorem in distributed databases.",
+  "How does the Operating System handle deadlock prevention, detection, and recovery?",
+  "Describe how the SSL/TLS handshake establishes a secure communication channel.",
+  "Explain the difference between pessimistic and optimistic locking strategies.",
+  "What is database normalization, and explain the difference between 3NF and BCNF.",
+  "How does load balancing work in large-scale distributed systems?",
+  "Explain the concept of thread pools and concurrent executors.",
+  "Describe how the OAuth 2.0 authorization code flow works.",
+  "What is Cache Invalidation, and what are the major strategies used?",
+  "Describe the internal structure and traversal of a B-Tree index in databases."
+];
+
 export const generateQuestion = async (type, level) => {
   const normType = type ? type.trim().toUpperCase() : 'DSA';
   const normLevel = level ? level.trim().toLowerCase() : 'easy';
@@ -219,6 +546,7 @@ Format:
 };
 
 export const generateAIMLQuestion = async (type, level) => {
+  const normLevel = level ? level.trim().toLowerCase() : 'easy';
   const prompt = `Generate ONE AI/ML interview question in STRICT JSON format.
 Rules:
 - Only return raw JSON (NO markdown, NO \`\`\`)
@@ -251,19 +579,17 @@ Format:
     return JSON.parse(clean);
   } catch (error) {
     console.error('AI/ML Question generation failed, returning fallback:', error.message);
-    return {
-      question: "Feature Scaling for Model Training",
-      statement: "Implement a function that performs Min-Max normalization on a 1D list of numerical features. The output should be values between 0 and 1.",
-      example1: { input: "features = [10, 20, 30, 40, 50]", output: "[0.0, 0.25, 0.5, 0.75, 1.0]" },
-      example2: { input: "features = [1, 2, 3]", output: "[0.0, 0.5, 1.0]" },
-      constraints: ["1 <= len(features) <= 1000", "Min and Max are not equal"],
-      starterCode: "def normalize_data(features):\n    pass",
-      expectedSolution: "def normalize_data(features):\n    mn = min(features)\n    mx = max(features)\n    return [(x - mn) / (mx - mn) for x in features]"
-    };
+    let pool = fallbackAIMLEasyQuestions;
+    if (normLevel === 'hard') pool = fallbackAIMLHardQuestions;
+    else if (normLevel === 'medium') pool = fallbackAIMLMediumQuestions;
+
+    const randIdx = Math.floor(Math.random() * pool.length);
+    return pool[randIdx];
   }
 };
 
 export const generateDBQuestion = async (type, level) => {
+  const normLevel = level ? level.trim().toLowerCase() : 'easy';
   const prompt = `Generate ONE SQL-based AI/ML interview question in STRICT JSON format.
 
 Rules:
@@ -299,15 +625,12 @@ Format:
     return JSON.parse(clean);
   } catch (error) {
     console.error('DB Question generation failed, returning fallback:', error.message);
-    return {
-      question: "Top N High-Value Customers",
-      statement: "Write a SQL query to find the names of the top 3 customers who have spent the most money. Assume tables 'Customers' (id, name) and 'Orders' (id, customer_id, amount).",
-      example1: { input: "Customers = [(1,'A'),(2,'B')], Orders = [(1,1,100),(2,1,200)]", output: "Customer A, total 300" },
-      example2: { input: "Customers = [(1,'A')], Orders = []", output: "No results" },
-      constraints: ["Return names and total amount spent", "Order by amount DESC"],
-      starterCode: "SELECT ...",
-      expectedSolution: "SELECT c.name, SUM(o.amount) AS total_spent\nFROM Customers c\nJOIN Orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name\nORDER BY total_spent DESC\nLIMIT 3;"
-    };
+    let pool = fallbackDBEasyQuestions;
+    if (normLevel === 'hard') pool = fallbackDBHardQuestions;
+    else if (normLevel === 'medium') pool = fallbackDBMediumQuestions;
+
+    const randIdx = Math.floor(Math.random() * pool.length);
+    return pool[randIdx];
   }
 };
 
@@ -479,13 +802,10 @@ OUTPUT FORMAT:
     return JSON.parse(clean);
   } catch (error) {
     console.error('AI Theory questions generation failed, returning fallback:', error.message);
-    return [
-      "Explain the difference between a process and a thread.",
-      "What is polymorphism in OOP?",
-      "How does the Internet Protocol (IP) work?",
-      "What are the ACID properties in a database?",
-      "Explain the concept of Big O notation."
-    ];
+    const normLevel = level ? level.trim().toLowerCase() : 'easy';
+    if (normLevel === 'hard') return fallbackTheoryHardQuestions;
+    if (normLevel === 'medium') return fallbackTheoryMediumQuestions;
+    return fallbackTheoryEasyQuestions;
   }
 };
 
@@ -747,6 +1067,225 @@ export const getLocalExpectedSolution = (questionStatement, language, starterCod
   const statementLower = questionStatement ? questionStatement.toLowerCase() : '';
   const langLower = language ? language.toLowerCase().trim() : 'cpp';
   const starter = starterCode || '';
+
+  // AI/ML & SQL fallback solutions map
+  const fallbackSolutions = [
+    {
+      keywords: ['mean and median of features', 'mean_median', 'mean and median'],
+      solution: `def mean_median(features):
+    n = len(features)
+    mean = sum(features) / n
+    sorted_f = sorted(features)
+    if n % 2 != 0:
+        median = float(sorted_f[n // 2])
+    else:
+        median = (sorted_f[(n // 2) - 1] + sorted_f[n // 2]) / 2.0
+    return (round(mean, 2), round(median, 2))`
+    },
+    {
+      keywords: ['min-max feature scaling', 'normalize_data', 'min-max normalization', 'min-max'],
+      solution: `def normalize_data(features):
+    mn = min(features)
+    mx = max(features)
+    return [float(x - mn) / (mx - mn) for x in features]`
+    },
+    {
+      keywords: ['accuracy score calculation', 'accuracy_score', 'accuracy of a classification model', 'accuracy of a classification'],
+      solution: `def accuracy_score(y_true, y_pred):
+    correct = sum(1 for yt, yp in zip(y_true, y_pred) if yt == yp)
+    return float(correct) / len(y_true)`
+    },
+    {
+      keywords: ['mean squared error', 'mean_squared_error'],
+      solution: `def mean_squared_error(actual, predicted):
+    squared_errors = [(act - pred) ** 2 for act, pred in zip(actual, predicted)]
+    return sum(squared_errors) / len(actual)`
+    },
+    {
+      keywords: ['leakyrelu', 'leaky_relu'],
+      solution: `def leaky_relu(x, alpha=0.01):
+    return [float(alpha * val) if val < 0 else float(val) for val in x]`
+    },
+    {
+      keywords: ['k-nn euclidean distance', 'closest_point', 'euclidean distance from the query point', 'euclidean distance'],
+      solution: `import math
+def closest_point(query, points):
+    min_dist = float('inf')
+    closest_idx = -1
+    for idx, pt in enumerate(points):
+        dist = math.sqrt(sum((q - p) ** 2 for q, p in zip(query, pt)))
+        if dist < min_dist:
+            min_dist = dist
+            closest_idx = idx
+    return closest_idx`
+    },
+    {
+      keywords: ['sigmoid and its derivative', 'sigmoid_and_derivative', 'sigmoid activation function and its derivative', 'sigmoid activation function'],
+      solution: `import math
+def sigmoid_and_derivative(x):
+    s = 1.0 / (1.0 + math.exp(-x))
+    ds = s * (1.0 - s)
+    return (round(s, 2), round(ds, 2))`
+    },
+    {
+      keywords: ['one-hot encoding', 'one_hot_encode', '2d one-hot encoded representation', 'one-hot encoded'],
+      solution: `def one_hot_encode(labels, classes):
+    class_map = {cls: idx for idx, cls in enumerate(classes)}
+    result = []
+    for label in labels:
+        encoded = [0] * len(classes)
+        if label in class_map:
+            encoded[class_map[label]] = 1
+        result.append(encoded)
+    return result`
+    },
+    {
+      keywords: ['z-score standardization', 'standardize', 'standardize a feature list by subtracting', 'standardize a feature list'],
+      solution: `import math
+def standardize(features):
+    n = len(features)
+    if n <= 1: return [float(x) for x in features]
+    mean = sum(features) / n
+    variance = sum((x - mean) ** 2 for x in features) / n
+    std_dev = math.sqrt(variance)
+    if std_dev == 0: return [float(x) for x in features]
+    return [round((x - mean) / std_dev, 2) for x in features]`
+    },
+    {
+      keywords: ['f1-score calculation', 'f1_score', 'compute the f1-score given', 'f1-score'],
+      solution: `def f1_score(tp, fp, fn):
+    if tp == 0: return 0.0
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    if precision + recall == 0: return 0.0
+    f1 = 2 * (precision * recall) / (precision + recall)
+    return round(f1, 2)`
+    },
+    {
+      keywords: ['linear regression gradient descent update', 'gradient_descent_step', 'updated weights (w) and bias (b)'],
+      solution: `def gradient_descent_step(x, y, w, b, lr):
+    n = len(x)
+    grad_w = 0.0
+    grad_b = 0.0
+    for xi, yi in zip(x, y):
+        pred = w * xi + b
+        err = pred - yi
+        grad_w += err * xi
+        grad_b += err
+    grad_w = (2 / n) * grad_w
+    grad_b = (2 / n) * grad_b
+    new_w = w - lr * grad_w
+    new_b = b - lr * grad_b
+    return (round(new_w, 2), round(new_b, 2))`
+    },
+    {
+      keywords: ['stable softmax', 'stable_softmax', 'softmax function on a 1d list of floating', 'numerically stable'],
+      solution: `import math
+def stable_softmax(logits):
+    mx = max(logits)
+    exp_vals = [math.exp(x - mx) for x in logits]
+    sum_exp = sum(exp_vals)
+    return [round(ev / sum_exp, 2) for ev in exp_vals]`
+    },
+    {
+      keywords: ['k-means centroid update', 'update_centroids', 'updated centroids list of tuples'],
+      solution: `def update_centroids(points, labels):
+    clusters = {}
+    for pt, lbl in zip(points, labels):
+        if lbl not in clusters:
+            clusters[lbl] = []
+        clusters[lbl].append(pt)
+    centroids = []
+    for lbl in sorted(clusters.keys()):
+        pts = clusters[lbl]
+        avg_x = sum(p[0] for p in pts) / len(pts)
+        avg_y = sum(p[1] for p in pts) / len(pts)
+        centroids.append((round(avg_x, 2), round(avg_y, 2)))
+    return centroids`
+    },
+    {
+      keywords: ['binary cross-entropy loss', 'bce_loss'],
+      solution: `import math
+def bce_loss(y_true, y_pred):
+    loss = 0.0
+    n = len(y_true)
+    for yt, yp in zip(y_true, y_pred):
+        yp = max(1e-15, min(1.0 - 1e-15, yp))
+        loss += -1 * (yt * math.log(yp) + (1 - yt) * math.log(1 - yp))
+    return round(loss / n, 2)`
+    },
+    {
+      keywords: ['l2 regularization gradient', 'l2_gradient', 'ridge regression penalty'],
+      solution: `def l2_gradient(w, lmbda):
+    return [round(lmbda * val, 2) for val in w]`
+    },
+    {
+      keywords: ['select active users', "status = 'active'", 'select * from users', 'active status'],
+      solution: `SELECT * FROM Users WHERE status = 'active' ORDER BY name ASC;`
+    },
+    {
+      keywords: ['count orders by customer', 'total_orders', 'total number of orders placed by each customer'],
+      solution: `SELECT customer_id, COUNT(id) AS total_orders FROM Orders GROUP BY customer_id;`
+    },
+    {
+      keywords: ['find employees with high salaries', 'salary > 80000', 'earn more than $80,000 per year', 'earn more than $80,000'],
+      solution: `SELECT name FROM Employees WHERE salary > 80000;`
+    },
+    {
+      keywords: ['list products by price', 'price >= 50', 'price is at least $50. sort by price descending', 'price is at least $50'],
+      solution: `SELECT name, price FROM Products WHERE price >= 50 ORDER BY price DESC;`
+    },
+    {
+      keywords: ['find customer emails', 'registration_date', 'registered in the year 2026 from the', 'registered in the year 2026'],
+      solution: `SELECT DISTINCT email FROM Customers WHERE registration_date >= '2026-01-01' AND registration_date <= '2026-12-31';`
+    },
+    {
+      keywords: ['top spent customers', 'total_spent', 'top 3 customers who spent the most money', 'top 3 customers who spent'],
+      solution: `SELECT c.name, SUM(o.amount) AS total_spent FROM Customers c JOIN Orders o ON c.id = o.customer_id GROUP BY c.id, c.name ORDER BY total_spent DESC LIMIT 3;`
+    },
+    {
+      keywords: ['department average salary', 'avg_salary', 'average salary of more than $60,000'],
+      solution: `SELECT department, AVG(salary) AS avg_salary FROM Employees GROUP BY department HAVING AVG(salary) > 60000;`
+    },
+    {
+      keywords: ['second highest salary', 'second highest salary from the'],
+      solution: `SELECT DISTINCT salary FROM Employees ORDER BY salary DESC LIMIT 1 OFFSET 1;`
+    },
+    {
+      keywords: ['identify duplicate emails', 'contacts', 'duplicate email addresses from the', 'duplicate email addresses'],
+      solution: `SELECT email, COUNT(email) AS count FROM Contacts GROUP BY email HAVING COUNT(email) > 1;`
+    },
+    {
+      keywords: ['monthly sales revenue', 'monthly sales revenue', 'extract(month from order_date)', 'sales revenue generated in each month of the year 2026', 'sales revenue generated in each month'],
+      solution: `SELECT EXTRACT(MONTH FROM order_date) AS month, SUM(amount) AS total_revenue FROM Orders WHERE order_date >= '2026-01-01' AND order_date <= '2026-12-31' GROUP BY EXTRACT(MONTH FROM order_date) ORDER BY month ASC;`
+    },
+    {
+      keywords: ['consecutive login days', 'logins', 'logged in on 3 or more consecutive days'],
+      solution: `SELECT DISTINCT user_id FROM (SELECT user_id, login_date, LEAD(login_date, 1) OVER (PARTITION BY user_id ORDER BY login_date) AS next_date, LEAD(login_date, 2) OVER (PARTITION BY user_id ORDER BY login_date) AS next_next_date FROM Logins) t WHERE DATEDIFF(next_date, login_date) = 1 AND DATEDIFF(next_next_date, next_date) = 1;`
+    },
+    {
+      keywords: ['rank salary within department', 'dense_rank()', 'rank employee salaries within their respective departments', 'dense_rank'],
+      solution: `SELECT department, name, salary, DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank FROM Employees;`
+    },
+    {
+      keywords: ['cumulative sales revenue', 'running_total', 'cumulative (running) total of sales revenue', 'cumulative (running) total'],
+      solution: `SELECT order_date, SUM(amount) AS daily_revenue, SUM(SUM(amount)) OVER (ORDER BY order_date) AS running_total FROM Orders WHERE order_date >= '2026-01-01' AND order_date <= '2026-12-31' GROUP BY order_date ORDER BY order_date ASC;`
+    },
+    {
+      keywords: ['identify non-purchasing customers', 'left join', 'registered but have never placed an order'],
+      solution: `SELECT c.name, c.email FROM Customers c LEFT JOIN Orders o ON c.id = o.customer_id WHERE o.id IS NULL;`
+    },
+    {
+      keywords: ['managers with direct reports', 'having count(e.id) >= 5', 'manage at least 5 direct reporting employees', 'managers who manage at least 5'],
+      solution: `SELECT m.name FROM Employees e JOIN Employees m ON e.manager_id = m.id GROUP BY m.id, m.name HAVING COUNT(e.id) >= 5;`
+    }
+  ];
+
+  for (const item of fallbackSolutions) {
+    if (item.keywords.some(kw => statementLower.includes(kw))) {
+      return item.solution;
+    }
+  }
 
   // 1. Two Sum
   if (statementLower.includes('two sum') || (statementLower.includes('indices') && statementLower.includes('add up to target'))) {
