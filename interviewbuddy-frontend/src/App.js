@@ -18,6 +18,7 @@ import CandidateProfile from "./pages/CandidateProfile";
 import ResumeInterview from "./pages/ResumeInterview";
 import { useEffect } from "react";
 import API from "./services/api";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages that should show the moving wave/video background
 const WAVE_BG_ROUTES = ["/", "/interviewer-dashboard"];
@@ -65,25 +66,27 @@ function AppContent() {
       {/* Layout Wrapper for routes */}
       <div className="relative z-10">
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          <Route path="/ai-interview/theory" element={<FundamentalsInterview />} />
-          <Route path="/result" element={<Results />} />
-
-          <Route path="/interview-type" element={<InterviewType />} />
-          <Route path="/human-interview" element={<HumanInterview />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/ai-interview/coding" element={<Dsa />} />
 
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/feedback-theory" element={<FeedbackTheory />} />
-          <Route path="/interviewer-dashboard" element={<InterviewerDashboard />} />
-          <Route path="/interviewer-profile" element={<InterviewerProfile />} />
-          <Route path="/interview-choice" element={<InterviewerChoicePage />} />
-          <Route path="/candidate-profile" element={<CandidateProfile />} />
-          <Route path="/resume-interview" element={<ResumeInterview />} />
+          {/* Interviewee Protected Routes */}
+          <Route path="/interview-choice" element={<ProtectedRoute allowedRole="interviewee"><InterviewerChoicePage /></ProtectedRoute>} />
+          <Route path="/interview-type" element={<ProtectedRoute allowedRole="interviewee"><InterviewType /></ProtectedRoute>} />
+          <Route path="/ai-interview/coding" element={<ProtectedRoute allowedRole="interviewee"><Dsa /></ProtectedRoute>} />
+          <Route path="/ai-interview/theory" element={<ProtectedRoute allowedRole="interviewee"><FundamentalsInterview /></ProtectedRoute>} />
+          <Route path="/result" element={<ProtectedRoute allowedRole="interviewee"><Results /></ProtectedRoute>} />
+          <Route path="/human-interview" element={<ProtectedRoute allowedRole="interviewee"><HumanInterview /></ProtectedRoute>} />
+          <Route path="/feedback" element={<ProtectedRoute allowedRole="interviewee"><Feedback /></ProtectedRoute>} />
+          <Route path="/feedback-theory" element={<ProtectedRoute allowedRole="interviewee"><FeedbackTheory /></ProtectedRoute>} />
+          <Route path="/candidate-profile" element={<ProtectedRoute allowedRole="interviewee"><CandidateProfile /></ProtectedRoute>} />
+          <Route path="/resume-interview" element={<ProtectedRoute allowedRole="interviewee"><ResumeInterview /></ProtectedRoute>} />
+
+          {/* Interviewer Protected Routes */}
+          <Route path="/interviewer-dashboard" element={<ProtectedRoute allowedRole="interviewer"><InterviewerDashboard /></ProtectedRoute>} />
+          <Route path="/interviewer-profile" element={<ProtectedRoute allowedRole="interviewer"><InterviewerProfile /></ProtectedRoute>} />
         </Routes>
       </div>
     </div>

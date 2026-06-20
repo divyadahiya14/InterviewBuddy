@@ -37,7 +37,9 @@ export const jwtInterceptor = (req, res, next) => {
   const uri = req.originalUrl;
   const isProtected = uri.startsWith('/api/candidate') ||
                       uri.startsWith('/api/interviewer') ||
-                      uri.startsWith('/api/booking');
+                      uri.startsWith('/api/booking') ||
+                      uri.startsWith('/api/ai/interview') ||
+                      uri.startsWith('/api/resume');
 
   if (isProtected) {
     if (!req.userEmail) {
