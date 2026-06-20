@@ -43,14 +43,24 @@ export default function InterviewerDashboard() {
   useEffect(() => { if (email) { fetchBookings(); fetchProfile(); } }, [email]);
 
   const fetchBookings = async () => {
-    try { const res = await API.get(`/booking/interviewer?email=${email}`); setBookings(res.data); }
+    try { 
+      const res = await API.get(`/booking/interviewer?email=${email}`); 
+      setBookings(Array.isArray(res.data) ? res.data : []); 
+    }
     catch (err) { console.log(err); }
   };
 
   const fetchProfile = async () => {
     try {
       const res = await API.get(`/interviewer/by-email?email=${email}`);
-      setProfile(prev => ({ ...prev, name: res.data.name ?? prev.name, bio: res.data.bio ?? prev.bio, rating: res.data.rating ?? prev.rating ?? 0 }));
+      if (res.data) {
+        setProfile(prev => ({ 
+          ...prev, 
+          name: res.data.name ?? prev.name, 
+          bio: res.data.bio ?? prev.bio, 
+          rating: res.data.rating ?? prev.rating ?? 0 
+        }));
+      }
     } catch (err) { console.log(err); }
   };
 
