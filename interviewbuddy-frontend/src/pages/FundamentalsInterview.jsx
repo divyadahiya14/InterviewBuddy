@@ -13,7 +13,11 @@ import {
   AlertTriangle,
   Award,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Globe,
+  Database,
+  Bot,
+  Lightbulb
 } from "lucide-react";
 import API from "../services/api";
 import "./FundamentalsInterview.css";
@@ -185,6 +189,28 @@ export default function FundamentalsInterview() {
     }
   };
 
+  const getHeaderDetails = () => {
+    const lowerType = type.toLowerCase();
+    if (lowerType.includes("fundamentals")) {
+      return { icon: <FileText size={15} className="text-[#8b5cf6]" />, text: "Fundamentals Interview" };
+    }
+    if (lowerType.includes("web")) {
+      return { icon: <Globe size={15} className="text-cyan-400" />, text: "Web Development Interview" };
+    }
+    if (lowerType.includes("db")) {
+      return { icon: <Database size={15} className="text-amber-400" />, text: "Database Interview" };
+    }
+    if (lowerType.includes("ai")) {
+      return { icon: <Bot size={15} className="text-purple-400 animate-pulse" />, text: "AI/ML Interview" };
+    }
+    if (lowerType.includes("resume")) {
+      return { icon: <FileText size={15} className="text-cyan-400" />, text: "Resume AI Mock Session" };
+    }
+    return { icon: <FileText size={15} className="text-brand" />, text: `${type} Interview` };
+  };
+
+  const headerDetails = getHeaderDetails();
+
   const timerColorClass = timeLeft < 300 
     ? "text-rose-400 bg-rose-500/10 border-rose-500/20 shadow-[0_0_15px_rgba(244,63,94,0.1)] animate-pulse" 
     : timeLeft < 600 
@@ -225,13 +251,9 @@ export default function FundamentalsInterview() {
             <LogoMark className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="font-extrabold text-sm text-white tracking-tight">
-              {type.toLowerCase().includes("fundamentals") ? "📘 Fundamentals Interview" : 
-               type.toLowerCase().includes("web") ? "🌐 Web Development Interview" :
-               type.toLowerCase().includes("db") ? "🗄️ Database Interview" :
-               type.toLowerCase().includes("ai") ? "🤖 AI/ML Interview" :
-               type.toLowerCase().includes("resume") ? "📄 Resume AI Mock Session" :
-               `📘 ${type} Interview`}
+            <h2 className="font-extrabold text-sm text-white tracking-tight flex items-center gap-1.5">
+              {headerDetails.icon}
+              {headerDetails.text}
             </h2>
             <div className="text-[10px] text-white/40 uppercase tracking-wider mt-0.5">
               {type.toLowerCase().includes("resume") ? "Customized session based on your profile" : "AI-powered theory session"}
@@ -246,7 +268,7 @@ export default function FundamentalsInterview() {
           </div>
           <div className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border text-xs font-extrabold tracking-wider ${timerColorClass}`} id="fundamentals-timer-badge">
             <Clock size={13} />
-            <span>⏱ {formatTime()}</span>
+            <span>{formatTime()}</span>
           </div>
         </div>
       </header>
@@ -300,8 +322,8 @@ export default function FundamentalsInterview() {
         {/* WORKSPACE AREA */}
         <section className="lg:col-span-3 space-y-6">
           {type.toLowerCase().includes("resume") && (
-            <div className="flex gap-3 bg-amber-500/5 border border-amber-500/15 rounded-2xl p-4 text-xs text-amber-300/80 leading-relaxed" id="fundamentals-resume-alert">
-              <span className="text-base flex-shrink-0">💡</span>
+            <div className="flex gap-3 bg-amber-500/5 border border-amber-500/15 rounded-2xl p-4 text-xs text-amber-300/80 leading-relaxed items-start" id="fundamentals-resume-alert">
+              <Lightbulb size={16} className="text-amber-400 mt-0.5 flex-shrink-0" />
               <div>
                 <strong className="text-amber-300 font-bold block mb-0.5">Resume integration active</strong>
                 This mock interview is dynamically tailored to your parsed resume skills. Speak or type your answers naturally as you would in a real company interview.
