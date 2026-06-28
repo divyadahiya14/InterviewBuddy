@@ -76,7 +76,7 @@ function Dsa() {
       setHintCount(prev => prev + 1);
       toast(hintText, { 
          duration: 8000, 
-         icon: <Lightbulb size={18} className="text-amber-400" />,
+         icon: <Lightbulb size={24} className="text-amber-400 flex-shrink-0" style={{ minWidth: "24px", minHeight: "24px" }} />,
          style: { 
            background: "#1e293b", 
            color: "#f1f5f9", 
