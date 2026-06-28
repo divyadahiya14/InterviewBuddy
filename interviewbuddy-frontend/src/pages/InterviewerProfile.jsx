@@ -192,7 +192,8 @@ export default function InterviewerProfile() {
             <input 
               type="date" 
               onChange={e => toggleDate(e.target.value)} 
-              className="w-full px-5 py-3.5 bg-white/[0.015] border border-white/10 rounded-2xl text-white outline-none focus:border-cyan-500/40 focus:bg-white/[0.03] transition-all duration-300 text-xs font-semibold colorScheme:dark" 
+              className="w-full px-5 py-3.5 bg-white/[0.015] border border-white/10 rounded-2xl text-white outline-none focus:border-cyan-500/40 focus:bg-white/[0.03] transition-all duration-300 text-xs font-semibold" 
+              style={{ colorScheme: "dark" }}
             />
           </div>
 
