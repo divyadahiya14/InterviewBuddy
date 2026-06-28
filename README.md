@@ -128,5 +128,90 @@ npm start
 
 ---
 
+## 📂 Directory Structure
+
+Here is the folder structure for both the frontend and backend components of the project:
+
+```text
+InterviewBuddy/
+├── interviewbuddy-backend/         # Node.js + Express Backend Server
+│   ├── config/                     # Database & API Configurations
+│   ├── controllers/                # Request Handlers & Business Logic
+│   ├── middleware/                 # JWT Authentication & Request Logging Guard
+│   ├── models/                     # Mongoose Schema Models (User, Report, Booking, etc.)
+│   ├── routes/                     # Express Router Definitions
+│   ├── services/                   # Business Services & External Integrations (Gemini, Brevo, Razorpay)
+│   ├── utils/                      # Helper Scripts & Formatting Utilities
+│   ├── .env                        # Local Environment Config Variables
+│   ├── server.js                   # Main Entrypoint Server File
+│   └── package.json                # Dependencies & Server Scripts
+└── interviewbuddy-frontend/        # React + Tailwind CSS Frontend Client
+    ├── public/                     # Static assets, favicon, HTML index
+    ├── src/
+    │   ├── components/             # Reusable UI Components (Navbar, ProtectedRoute, etc.)
+    │   ├── pages/                  # Page Components & Router Views
+    │   ├── services/               # Axios API Client config & Authentication Services
+    │   ├── styles/                 # Tailwind CSS directives & global styling
+    │   ├── App.js                  # App routing & component mounting
+    │   ├── firebase.js             # Firebase Client initialization (Google Sign-In configuration)
+    │   └── index.js                # Core JS mount configuration
+    ├── .env.local                  # Local React Environment Config Variables
+    └── package.json                # Client dependencies & scripts
+```
+
+---
+
+## 🔌 Backend API Endpoints
+
+All API endpoints are prefixed with `/api`. Here is a complete list of the available routes and their functions:
+
+### 🔑 Authentication Routes (`/api/auth`)
+* `GET /users` - Fetch list of all registered users (debug/admin).
+* `POST /register` - Create a new user account.
+* `POST /login` - Standard email/password user login.
+* `POST /google-login` - Google Authentication user registration / session login.
+* `GET /me` - Get current authenticated user profile session.
+* `POST /logout` - Log out current user & clear secure cookie session.
+* `POST /send-otp` - Trigger 2FA/Password recovery OTP email validation.
+* `POST /verify-otp` - Verify the reset OTP token.
+* `POST /reset-password` - Reset account password with verified token.
+* `PUT /profile` - Edit user credentials or profile particulars.
+
+### 🤖 AI Interview Routes (`/api/ai/interview`)
+* `GET /question` - Retrieve a target coding question based on topic & difficulty.
+* `POST /evaluate` - Analyze DSA/ML code correctness, runtime metrics, complexity.
+* `POST /feedback` - Compile AI breakdown & structured recommendations.
+* `POST /theoryQuestions` - Request 10 customized interview questions on a selected topic.
+* `POST /theory-feedback` - Grade verbal responses to selected theory questions.
+* `POST /hint` - Generate dynamic assistance hints based on code editor context.
+* `POST /save-report` - Persist completed interview diagnostics reports.
+
+### 📄 Resume Analysis Routes (`/api/resume`)
+* `POST /upload` - Process uploaded PDF resume to extract topics & build custom quiz.
+* `GET /latest` - Retrieve current resume questions.
+
+### 💳 Booking Routes (`/api/booking`)
+* `POST /create-order` - Initiate Razorpay checkout order request.
+* `POST /confirm` - Confirm session checkout booking & trigger email invitations.
+* `GET /interviewer` - Get appointments for the logged-in interviewer.
+* `GET /candidate` - Get appointments for the logged-in candidate.
+
+### 💼 Interviewer Routes (`/api/interviewer`)
+* `GET /by-email` - Get details of an interviewer by email query parameters.
+* `PUT /` - Modify profile parameters, rates, or credentials.
+* `GET /all` - Fetch all active verified interviewers.
+* `PATCH /availability` - Edit weekly booking time-slots.
+* `POST /:id/rate` - Add a feedback rating review to an interviewer profile.
+
+### 🎓 Candidate Routes (`/api/candidate`)
+* `GET /:email/profile` - Fetch candidate statistics, streaks, and completed reports.
+* `GET /report/:id` - Fetch details of a specific diagnostic report.
+* `POST /report/:id/retry` - Force retry generating an AI assessment report.
+* `DELETE /report/:id` - Delete a diagnostic report.
+* `DELETE /booking/:id` - Cancel a mentor session appointment booking.
+* `GET /debug-reports` - Admin utility to list all database reports.
+
+---
+
 ## 📄 License
 This project is licensed under the MIT License.
