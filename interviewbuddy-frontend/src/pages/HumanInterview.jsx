@@ -259,7 +259,9 @@ export default function HumanInterview() {
                     <div className="text-[10px] font-black text-white/35 tracking-wider uppercase mb-3">Available Slots</div>
                     {(() => {
                       const todayStr = new Date().toLocaleDateString("en-CA");
-                      const activeSlots = intv.availability?.filter(slot => slot.date >= todayStr) || [];
+                      const activeSlots = intv.availability?.filter(slot => 
+                        slot.date >= todayStr && slot.timeSlots && slot.timeSlots.length > 0
+                      ) || [];
                       
                       if (activeSlots.length === 0) {
                         return <p className="text-xs text-white/35 italic">No availability slots set.</p>;
