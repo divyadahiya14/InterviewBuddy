@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const run = async () => {
-  await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/interview_buddy');
+  await mongoose.connect(process.env.MONGODB_URI);
   const users = await User.find({});
   console.log('USERS IN DB:');
   users.forEach(u => {
