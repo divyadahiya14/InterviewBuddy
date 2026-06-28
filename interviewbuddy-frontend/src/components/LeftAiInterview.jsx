@@ -241,6 +241,14 @@
 
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import { 
+  Volume2, 
+  Square, 
+  ClipboardList, 
+  Lightbulb, 
+  AlertTriangle,
+  Loader2
+} from "lucide-react";
 
 function LeftAiInterview({ type, level, onTimeUp }) {
   const [data, setData] = useState(() => {
@@ -903,10 +911,10 @@ function LeftAiInterview({ type, level, onTimeUp }) {
         {/* CONTROLS */}
         <div style={styles.controls}>
           <button onClick={speak} style={styles.iconBtn} title="Speak">
-            🔊
+            <Volume2 size={15} className={speaking ? "text-[#00d4ff] animate-pulse" : "text-white/60"} />
           </button>
           <button onClick={stopSpeak} style={styles.iconBtn} title="Stop">
-            ⏹
+            <Square size={12} className="text-white/60" />
           </button>
         </div>
 
@@ -926,7 +934,7 @@ function LeftAiInterview({ type, level, onTimeUp }) {
       {/* CONTENT */}
       {!data ? (
         <div style={styles.loading}>
-          <div style={styles.loadingDot} />
+          <Loader2 size={16} className="animate-spin text-[#00d4ff] mr-2" style={{ animation: "spin 1s linear infinite" }} />
           Loading question...
         </div>
       ) : (
@@ -934,12 +942,16 @@ function LeftAiInterview({ type, level, onTimeUp }) {
           <div style={styles.questionTitle}>{data.question}</div>
 
           <div style={styles.block}>
-            <h4 style={styles.blockTitle}>📋 Problem</h4>
+            <h4 style={{ ...styles.blockTitle, display: "flex", alignItems: "center", gap: "6px" }}>
+              <ClipboardList size={14} className="text-[#00d4ff]" /> Problem
+            </h4>
             <p style={styles.blockText}>{data.statement}</p>
           </div>
 
           <div style={styles.block}>
-            <h4 style={styles.blockTitle}>💡 Example 1</h4>
+            <h4 style={{ ...styles.blockTitle, display: "flex", alignItems: "center", gap: "6px" }}>
+              <Lightbulb size={14} className="text-amber-400" /> Example 1
+            </h4>
             <pre style={styles.preBox}>
               Input: {data.example1?.input}{"\n"}
               Output: {data.example1?.output}
@@ -947,7 +959,9 @@ function LeftAiInterview({ type, level, onTimeUp }) {
           </div>
 
           <div style={styles.block}>
-            <h4 style={styles.blockTitle}>💡 Example 2</h4>
+            <h4 style={{ ...styles.blockTitle, display: "flex", alignItems: "center", gap: "6px" }}>
+              <Lightbulb size={14} className="text-amber-400" /> Example 2
+            </h4>
             <pre style={styles.preBox}>
               Input: {data.example2?.input}{"\n"}
               Output: {data.example2?.output}
@@ -955,7 +969,9 @@ function LeftAiInterview({ type, level, onTimeUp }) {
           </div>
 
           <div style={styles.block}>
-            <h4 style={styles.blockTitle}>⚠️ Constraints</h4>
+            <h4 style={{ ...styles.blockTitle, display: "flex", alignItems: "center", gap: "6px" }}>
+              <AlertTriangle size={14} className="text-amber-500" /> Constraints
+            </h4>
             <pre style={styles.preBox}>
               {Array.isArray(data.constraints)
                 ? data.constraints.join("\n")

@@ -15,7 +15,8 @@ import {
   BarChart,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  Loader2
 } from "lucide-react";
 import toast from "react-hot-toast";
 import API from "../services/api";
@@ -75,7 +76,7 @@ function Dsa() {
       setHintCount(prev => prev + 1);
       toast(hintText, { 
          duration: 8000, 
-         icon: '💡',
+         icon: <Lightbulb size={18} className="text-amber-400" />,
          style: { 
            background: "#1e293b", 
            color: "#f1f5f9", 
@@ -353,7 +354,11 @@ function Dsa() {
               disabled={hintLoading}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 active:scale-[0.98] transition-all text-xs font-bold text-amber-400 disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              <Lightbulb size={13} />
+              {hintLoading ? (
+                <Loader2 size={13} className="animate-spin text-amber-400" />
+              ) : (
+                <Lightbulb size={13} />
+              )}
               <span>{hintLoading ? "Thinking..." : "Hint"}</span>
             </button>
 
