@@ -21,7 +21,7 @@ import API from "./services/api";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages that should show the moving wave/video background
-const WAVE_BG_ROUTES = ["/", "/interviewer-dashboard"];
+const WAVE_BG_ROUTES = ["/"];
 
 // Inner component so useLocation works inside BrowserRouter
 function AppContent() {
