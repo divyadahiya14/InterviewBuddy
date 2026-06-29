@@ -32,6 +32,7 @@ export default function InterviewType() {
         sessionStorage.removeItem(key);
       }
     });
+    sessionStorage.removeItem("interview_submitted");
 
     const t = topic.toLowerCase();
     const path = t === "dsa" || t === "aiml" || t === "database"

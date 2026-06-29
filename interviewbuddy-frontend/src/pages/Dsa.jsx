@@ -304,6 +304,32 @@ function Dsa() {
     ? "text-brand animate-pulse" 
     : "text-white/60";
 
+  const isSubmitted = sessionStorage.getItem("interview_submitted") === "true";
+
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen text-white flex flex-col items-center justify-center bg-[#0c0c0c] z-50 relative px-6 text-center select-none">
+        <div className="max-w-md liquid-glass rounded-3xl p-8 border border-white/10 bg-black/45 backdrop-blur-2xl shadow-2xl space-y-6 flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <CheckCircle size={36} className="animate-pulse" />
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-xl font-bold tracking-tight text-white">Interview Already Submitted</h2>
+            <p className="text-xs text-white/50 leading-relaxed">
+              This session has already been completed and submitted for evaluation. You cannot return to the interview workspace to modify your answers.
+            </p>
+          </div>
+          <button 
+            onClick={() => navigate("/candidate-profile")}
+            className="w-full py-3 bg-white hover:bg-white/95 text-black text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-[0.98]"
+          >
+            Go to User Profile
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-6 h-screen w-full bg-[#0c0c0c]/40 box-border text-white z-10 relative overflow-hidden">
       

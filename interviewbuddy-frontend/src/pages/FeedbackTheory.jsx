@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Sparkles, Home, RotateCcw, AlertTriangle, RefreshCw, CheckCircle } from "lucide-react";
+import { Sparkles, Home, RotateCcw, AlertTriangle, RefreshCw, CheckCircle, User } from "lucide-react";
 import API from "../services/api";
 
 export default function FeedbackTheory() {
@@ -19,6 +19,7 @@ export default function FeedbackTheory() {
   useEffect(() => {
     if (hasRun.current) return;
     hasRun.current = true;
+    sessionStorage.setItem("interview_submitted", "true");
 
     const fetchFeedback = async () => {
       try {
@@ -353,8 +354,8 @@ export default function FeedbackTheory() {
                 disabled={isEvaluating}
                 className="flex-1 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/70 hover:text-white transition-all text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Home className="w-3.5 h-3.5" />
-                <span>Dashboard</span>
+                <User className="w-3.5 h-3.5 text-[#22d3ee]" />
+                <span>User Profile</span>
               </button>
             </div>
 
