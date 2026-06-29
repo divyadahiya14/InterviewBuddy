@@ -508,6 +508,126 @@ const fallbackTheoryHardQuestions = [
   "Describe the internal structure and traversal of a B-Tree index in databases."
 ];
 
+// Web Development Fallbacks
+const fallbackTheoryWebEasy = [
+  "What is semantic HTML and why is it important for SEO and accessibility?",
+  "Explain the difference between let, const, and var in JavaScript.",
+  "What is the CSS box model and how do margin, border, padding, and content interact?",
+  "Describe the difference between localStorage, sessionStorage, and cookies.",
+  "What are media queries in CSS and how are they used for responsive design?",
+  "What is the difference between client-side routing and server-side routing?",
+  "Explain what DOM (Document Object Model) is and how JavaScript interacts with it.",
+  "What are the common HTTP status codes (like 200, 404, 500) and what do they mean?",
+  "What is React, and what are the main benefits of using components?",
+  "Describe the difference between inline, block, and inline-block elements in CSS."
+];
+
+const fallbackTheoryWebMedium = [
+  "Explain the virtual DOM in React and how the reconciliation process works.",
+  "What are React Hooks? Explain the difference between useState and useEffect lifecycle behaviors.",
+  "Explain the concept of closures in JavaScript and provide a common use case.",
+  "What is CORS (Cross-Origin Resource Sharing) and how do you resolve CORS errors?",
+  "Describe the event loop in JavaScript and how asynchronous calls (promises, microtasks) are scheduled.",
+  "What is state management in React, and when should you use Context API vs Redux?",
+  "Explain the difference between SQL and NoSQL databases for web application backends.",
+  "What is server-side rendering (SSR) vs static site generation (SSG) in frameworks like Next.js?",
+  "How does JWT (JSON Web Token) authentication work between a client and a server?",
+  "Explain CSS Flexbox vs CSS Grid and when to use each layout model."
+];
+
+const fallbackTheoryWebHard = [
+  "Explain Critical Rendering Path optimization in modern web browsers.",
+  "How do you optimize web application performance (code splitting, lazy loading, image optimization, caching)?",
+  "Describe the differences between WebSockets, Server-Sent Events (SSE), and standard HTTP pooling.",
+  "Explain security vulnerabilities like XSS (Cross-Site Scripting) and CSRF (Cross-Site Request Forgery) and how to mitigate them.",
+  "How does the virtual DOM Diffing algorithm optimize component re-renders?",
+  "Describe how tree shaking works in modern bundlers like Webpack or Vite.",
+  "Explain JavaScript prototypes and prototypical inheritance in depth.",
+  "Describe how to implement a secure, scalable role-based route guard system in a React SPA.",
+  "What is the difference between debounce and throttle patterns in JavaScript performance optimization?",
+  "Explain the differences between hydration, progressive hydration, and server components."
+];
+
+// AI/ML Fallbacks
+const fallbackTheoryAIEasy = [
+  "What is the difference between supervised and unsupervised learning?",
+  "Explain the concepts of overfitting and underfitting in Machine Learning.",
+  "What is a feature vector and feature scaling?",
+  "Describe what a confusion matrix is and list its four main components.",
+  "What is the role of training, validation, and test datasets in ML model development?",
+  "Explain the difference between classification and regression tasks.",
+  "What is Gradient Descent and what is its goal in training neural networks?",
+  "Define what bias and variance mean in the context of machine learning models.",
+  "What is the purpose of activation functions in a neural network?",
+  "Explain what clustering is and name one popular clustering algorithm."
+];
+
+const fallbackTheoryAIMedium = [
+  "Explain the bias-variance tradeoff and how regularization (L1/L2) helps mitigate it.",
+  "Describe the difference between L1 (Lasso) and L2 (Ridge) regularization.",
+  "What is cross-validation (like k-fold) and why is it preferred over a simple train-test split?",
+  "Explain how Random Forest algorithm works and the concept of ensemble learning.",
+  "What are Precision, Recall, and F1-score? When would you optimize for Recall over Precision?",
+  "Explain how Support Vector Machines (SVM) find the optimal decision boundary using the kernel trick.",
+  "Describe the difference between bagging and boosting ensemble methods.",
+  "What is backpropagation in neural networks and how does the chain rule apply to it?",
+  "Explain how the ROC curve and AUC metric evaluate a binary classifier.",
+  "What is the vanishing/exploding gradient problem in deep networks, and how do we fix it?"
+];
+
+const fallbackTheoryAIHard = [
+  "Explain the architecture of the Transformer model and how the Self-Attention mechanism works.",
+  "Describe the differences between CNNs (Convolutional) and RNNs (Recurrent) and their typical use cases.",
+  "Explain the mathematical difference between Sigmoid, Tanh, and ReLU activation functions and their gradient characteristics.",
+  "How does the Adam optimizer calculate adaptive learning rates for each parameter?",
+  "Describe how Generative Adversarial Networks (GANs) function and the minimax game formulation.",
+  "Explain how Layer Normalization differs from Batch Normalization and when to use each.",
+  "Describe reinforcement learning concepts: Q-learning, Policy Gradients, and the exploration-exploitation dilemma.",
+  "Explain PCA (Principal Component Analysis) mathematically and how it projects data onto lower dimensions.",
+  "How do large language models (LLMs) prevent hallucinations and how does RLHF (Reinforcement Learning from Human Feedback) work?",
+  "Explain contrastive learning and its application in self-supervised model pre-training."
+];
+
+// DBMS Fallbacks
+const fallbackTheoryDBMSEasy = [
+  "What is a database management system (DBMS) and how does it differ from a spreadsheet?",
+  "Explain the difference between a primary key, candidate key, and foreign key.",
+  "What is a database index and why is it used?",
+  "Explain the differences between SQL (Relational) and NoSQL (Non-relational) databases.",
+  "What are the common SQL commands: SELECT, INSERT, UPDATE, DELETE?",
+  "Explain the difference between CHAR and VARCHAR data types.",
+  "What is database normalization and what is its primary goal?",
+  "Describe the difference between a database schema and a database instance.",
+  "What is a database transaction?",
+  "Explain the difference between INNER JOIN and LEFT JOIN."
+];
+
+const fallbackTheoryDBMSMedium = [
+  "Explain the ACID properties of database transactions in detail.",
+  "What are the different levels of normalization (1NF, 2NF, 3NF, BCNF) and how do they eliminate anomalies?",
+  "Explain database indexing mechanisms like B-Tree and Hash indexes.",
+  "What is transaction isolation and explain the four isolation levels (Read Uncommitted, Read Committed, Repeatable Read, Serializable).",
+  "Describe common database concurrency anomalies: Dirty Read, Non-repeatable Read, and Phantom Read.",
+  "What are clustered and non-clustered indexes, and how do they physically structure data?",
+  "Explain the difference between optimistic locking and pessimistic locking concurrency controls.",
+  "What is a database view, and what is the difference between a view and a materialized view?",
+  "Explain database sharding vs database replication.",
+  "What is a stored procedure and how does it differ from a user-defined function (UDF)?"
+];
+
+const fallbackTheoryDBMSHard = [
+  "Explain the CAP Theorem and its implications for distributed database systems.",
+  "Describe the Write-Ahead Logging (WAL) protocol and how it ensures durability and atomicity.",
+  "Explain the mechanics of the Two-Phase Commit (2PC) protocol in distributed databases.",
+  "How does Multiversion Concurrency Control (MVCC) eliminate read locks in modern database engines?",
+  "Describe query optimization strategies: explain plan analysis, join algorithms (nested loop, hash join, merge join).",
+  "What is the difference between OLTP (Online Transaction Processing) and OLAP (Online Analytical Processing) architectures?",
+  "Explain database deadlock detection and deadlock prevention algorithms.",
+  "Describe the difference between row-oriented and column-oriented database storage models.",
+  "What is the Two-Phase Locking (2PL) protocol and how does it guarantee serializability?",
+  "Explain eventual consistency vs strong consistency in distributed NoSQL databases."
+];
+
 export const generateQuestion = async (type, level) => {
   const normType = type ? type.trim().toUpperCase() : 'DSA';
   const normLevel = level ? level.trim().toLowerCase() : 'easy';
@@ -821,6 +941,26 @@ OUTPUT FORMAT:
   } catch (error) {
     console.error('AI Theory questions generation failed, returning fallback:', error.message);
     const normLevel = level ? level.trim().toLowerCase() : 'easy';
+    
+    if (normalizedType === 'web') {
+      if (normLevel === 'hard') return fallbackTheoryWebHard;
+      if (normLevel === 'medium') return fallbackTheoryWebMedium;
+      return fallbackTheoryWebEasy;
+    }
+    
+    if (normalizedType === 'ai-ml') {
+      if (normLevel === 'hard') return fallbackTheoryAIHard;
+      if (normLevel === 'medium') return fallbackTheoryAIMedium;
+      return fallbackTheoryAIEasy;
+    }
+    
+    if (normalizedType === 'dbms') {
+      if (normLevel === 'hard') return fallbackTheoryDBMSHard;
+      if (normLevel === 'medium') return fallbackTheoryDBMSMedium;
+      return fallbackTheoryDBMSEasy;
+    }
+    
+    // Default (fundamentals or other)
     if (normLevel === 'hard') return fallbackTheoryHardQuestions;
     if (normLevel === 'medium') return fallbackTheoryMediumQuestions;
     return fallbackTheoryEasyQuestions;
