@@ -1581,17 +1581,11 @@ const CandidateProfile = () => {
                         <div className="space-y-4">
                           {selectedAiReport.questionStatement?.split("\n\n").map((q, idx) => {
                             const cleanQ = q.replace(/^Q\d+:\s*/, "");
-                            const aParts = selectedAiReport.submittedCode?.split("\n\n") || [];
-                            const cleanA = aParts[idx] ? aParts[idx].replace(/^Ans\s*\d+:\s*/, "") : "[No Answer]";
                             return (
-                              <div key={idx} className="bg-white/[0.01] border border-white/5 rounded-2xl p-5 space-y-3">
+                              <div key={idx} className="bg-white/[0.01] border border-white/5 rounded-2xl p-5">
                                 <div className="text-xs font-extrabold text-[#22d3ee] flex gap-2">
                                   <span className="text-brand">Q{idx + 1}:</span>
                                   <span>{cleanQ}</span>
-                                </div>
-                                <div className="text-xs text-white/80 p-4 bg-black/45 rounded-xl border-l-4 border-brand/50 leading-relaxed font-mono">
-                                  <span className="text-[8px] font-black text-white/30 block mb-2 uppercase tracking-wide">Submitted Answer dictation</span>
-                                  {cleanA}
                                 </div>
                               </div>
                             );
