@@ -57,7 +57,7 @@ export default function HumanInterview() {
   };
 
   const handleBook = async (intv, date, time) => {
-    if (!date || !time) { toast.error("⚠️ Please select an available date and time slot first!"); return; }
+    if (!date || !time) { toast.error("Please select an available date and time slot first!"); return; }
     try {
       const res = await API.post("/booking/create-order", { amount: intv.price });
       const { orderId, amount, key } = res.data;
@@ -66,7 +66,7 @@ export default function HumanInterview() {
         name: "Interview Buddy", description: "Expert Interview Booking",
         order_id: orderId,
         handler: async function (response) {
-          toast.success("Payment Successful! Check your email for details 🎉");
+          toast.success("Payment Successful! Check your email for details.");
           await API.post("/booking/confirm", {
             intervieweeEmail: JSON.parse(localStorage.getItem("user")).email,
             interviewerEmail: intv.email, interviewerId: intv.id,
@@ -98,7 +98,7 @@ export default function HumanInterview() {
     }
     try {
       await API.post(`/interviewer/${ratingTarget.id}/rate?score=${ratingScore}`);
-      toast.success(`Successfully rated ${ratingTarget.name} ${ratingScore} Stars! ⭐`);
+      toast.success(`Successfully rated ${ratingTarget.name} ${ratingScore} Stars!`);
       setRatingTarget(null);
       fetchInterviewers();
     } catch (err) {

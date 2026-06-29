@@ -657,11 +657,12 @@ ${code}
 ================ STRICT RULES ================
 1. Use ONLY given language: ${language}
 2. DO NOT convert language
-3. DO NOT fix or complete code
-4. If code incomplete → COMPILE_ERROR
-5. If syntax wrong → COMPILE_ERROR
-6. If runtime crash possible → RUNTIME_ERROR
-7. If logic incorrect → WRONG_ANSWER
+3. DO NOT fix or complete the logic of the code. However, assume all standard headers, imports, packages, and namespaces are already included (such as #include <vector>, #include <string>, #include <unordered_map>, #include <algorithm>, and using namespace std; for C++).
+4. The user is writing only the solution function(s). Do not trigger COMPILE_ERROR for missing headers, imports, class Solution wrappers, class scopes, namespace declarations, or main functions.
+5. If code incomplete inside the function body → COMPILE_ERROR
+6. If syntax wrong inside the function body → COMPILE_ERROR
+7. If runtime crash possible → RUNTIME_ERROR
+8. If logic incorrect → WRONG_ANSWER
 
 ================ EXECUTION ================
 - Simulate execution on multiple test cases
@@ -721,6 +722,7 @@ Valid code means:
 - It must contain meaningful programming syntax
 - It must not be random characters or gibberish
 - It must be related to the question
+- Note: Assume standard libraries, imports, packages, and namespaces (like C++ vector, string, algorithm, using namespace std) are already included. The code only contains the functions implementing the logic, not main or class Solution wrappers.
 
 IF CODE IS INVALID / RANDOM / NON-CODE:
 - timeComplexity = ""

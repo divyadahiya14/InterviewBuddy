@@ -90,7 +90,7 @@ function Dsa() {
       });
     } catch (err) {
       console.error("Hint Error:", err);
-      toast.error("⚠️ AI is busy. Please try again in a moment.");
+      toast.error("AI is busy. Please try again in a moment.");
     } finally { setHintLoading(false); }
   };
 
