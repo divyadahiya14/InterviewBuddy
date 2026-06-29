@@ -888,11 +888,20 @@ const CandidateProfile = () => {
                   {scores.map((s,i)=>{
                     const x = (i/(scores.length-1))*460 + 40;
                     const y = 160 - (s.score/100)*140;
+                    let rectX = x - 65;
+                    let textX = x;
+                    if (rectX < 15) {
+                      rectX = 15;
+                      textX = 15 + 65;
+                    } else if (rectX + 130 > 495) {
+                      rectX = 495 - 130;
+                      textX = rectX + 65;
+                    }
                     return (
                       <g key={i} className="score-dot-group cursor-pointer">
                         <circle cx={x} cy={y} r={4} fill="#0c0c0c" stroke="#3d81e3" strokeWidth={2.5} className="score-dot transition-all duration-200" />
-                        <rect x={x - 65} y={y - 45} width="130" height="34" rx="6" fill="#161616" stroke="rgba(255,255,255,0.1)" strokeWidth="1" className="score-tooltip opacity-0 pointer-events-none transition-all duration-200" />
-                        <text x={x} y={y - 23} fill="#ffffff" fontSize="11" fontWeight="700" textAnchor="middle" className="score-tooltip opacity-0 pointer-events-none transition-all duration-200">
+                        <rect x={rectX} y={y - 45} width="130" height="34" rx="6" fill="#161616" stroke="rgba(255,255,255,0.1)" strokeWidth="1" className="score-tooltip opacity-0 pointer-events-none transition-all duration-200" />
+                        <text x={textX} y={y - 23} fill="#ffffff" fontSize="11" fontWeight="700" textAnchor="middle" className="score-tooltip opacity-0 pointer-events-none transition-all duration-200">
                           {s.score}% • {s.date.toLocaleDateString(undefined, {month:'short', day:'numeric'})}
                         </text>
                       </g>
