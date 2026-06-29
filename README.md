@@ -55,9 +55,14 @@ Below is a visual walkthrough of the platform. You can replace these placeholder
 
 ### Backend
 * **Core:** Node.js, Express (ES Modules)
-* **Database:** MongoDB, Mongoose ODM
+* **Database:** MongoDB, Mongoose ODM (Cloud hosted on MongoDB Atlas)
 * **Security:** JSON Web Tokens (JWT), BCryptJS
 * **Integrations:** Google Gemini AI API, Brevo SMTP (Transactional Email API), Razorpay API
+
+### 🚀 Deployment & Hosting
+* **Frontend Web App Hosting:** Vercel
+* **Backend Web Service Hosting:** Render
+* **Cloud Database Cluster:** MongoDB Atlas
 
 ---
 
