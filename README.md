@@ -2,6 +2,10 @@
 
 An advanced, AI-powered diagnostic mockup platform designed to help engineers practice coding challenges, master theoretical concepts, and schedule real-world simulated interviews with expert mentors. 
 
+### 🌐 Live Deployments
+* **Frontend Web App:** [https://interview-buddy-bay.vercel.app](https://interview-buddy-bay.vercel.app)
+* **Backend API Server:** [https://interviewbuddy-87jz.onrender.com](https://interviewbuddy-87jz.onrender.com)
+
 ---
 
 ## 📸 Website Screenshots
