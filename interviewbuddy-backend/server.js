@@ -37,8 +37,9 @@ connectDB();
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
-  'https://interview-buddy-frontend.vercel.app'
-];
+  'https://interview-buddy-frontend.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean);
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
