@@ -34,7 +34,7 @@ Below is a visual walkthrough of the platform. You can replace these placeholder
 
 </p>
 
-### 3.Candidate Interview
+### 3. Candidate Interview
 <p align="center">
   <img width="1919" height="826" alt="Screenshot 2026-06-29 143205" src="https://github.com/user-attachments/assets/6b8953cb-8286-4806-9f29-02b1f6d52c98" />
   <img width="1919" height="1062" alt="Screenshot 2026-06-29 143230" src="https://github.com/user-attachments/assets/7706c7b8-7bb8-4d1a-8d6f-52c1321de846" />
