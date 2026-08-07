@@ -14,22 +14,50 @@ Below is a visual walkthrough of the platform. You can replace these placeholder
 
 ### 1. Landing Page
 <p align="center">
-  <img src="https://via.placeholder.com/800x450.png?text=Landing+Page+Mockup" alt="Landing Page" width="800" />
+ <img width="1919" height="825" alt="Screenshot 2026-06-29 142927" src="https://github.com/user-attachments/assets/e28f32c2-f5af-4d96-ba12-6b29a070743f" />
+ <img width="1919" height="829" alt="Screenshot 2026-06-29 142945" src="https://github.com/user-attachments/assets/23998941-a522-4aea-a7c9-a162e6719f40" />
+ <img width="1919" height="829" alt="Screenshot 2026-06-29 143043" src="https://github.com/user-attachments/assets/fa653212-c74e-47f1-8991-096d9b63dc3f" />
+ <img width="1919" height="822" alt="Screenshot 2026-06-29 143100" src="https://github.com/user-attachments/assets/5e272c02-dd67-4051-baa2-3550d2d3c352" />
+ <img width="1919" height="825" alt="Screenshot 2026-06-29 143119" src="https://github.com/user-attachments/assets/dc5a59f3-2c93-4c7d-b9d2-fefd7d8a58c9" />
+
+
+
+
+
 </p>
 
-### 2. Candidate Interview Workspace
+### 2. Candidate Dashboard
 <p align="center">
-  <img src="https://via.placeholder.com/800x450.png?text=Coding+Interview+Workspace+Mockup" alt="Coding Environment" width="800" />
+<img width="1919" height="825" alt="Screenshot 2026-06-29 143135" src="https://github.com/user-attachments/assets/3914d3d8-d124-436f-921c-b572beacf88f" />
+<img width="1918" height="824" alt="Screenshot 2026-06-29 143153" src="https://github.com/user-attachments/assets/1313cf4f-1c38-4f39-835a-cc35d94400ba" />
+
+
 </p>
 
-### 3. Interviewer Dashboard
+### 3.Candidate Interview
 <p align="center">
-  <img src="https://via.placeholder.com/800x450.png?text=Interviewer+Dashboard+Mockup" alt="Interviewer Dashboard" width="800" />
+  <img width="1919" height="826" alt="Screenshot 2026-06-29 143205" src="https://github.com/user-attachments/assets/6b8953cb-8286-4806-9f29-02b1f6d52c98" />
+  <img width="1919" height="1062" alt="Screenshot 2026-06-29 143230" src="https://github.com/user-attachments/assets/7706c7b8-7bb8-4d1a-8d6f-52c1321de846" />
+
+
+</p>
+
+### 4. Human Interview Booking
+<p align="center">
+  <img width="1919" height="829" alt="Screenshot 2026-06-29 143511" src="https://github.com/user-attachments/assets/5cdaf848-cef3-459f-934c-6ee530be313d" />
+  <img width="1919" height="821" alt="Screenshot 2026-06-29 143454" src="https://github.com/user-attachments/assets/899ddc4c-2e64-4f2b-a5a5-c3d9ecc2a16d" />
+
+
+
+
 </p>
 
 ### 4. Detailed AI Performance Report
 <p align="center">
-  <img src="https://via.placeholder.com/800x450.png?text=AI+Feedback+Report+Mockup" alt="Detailed Feedback Page" width="800" />
+  <img width="1919" height="826" alt="Screenshot 2026-06-29 143528" src="https://github.com/user-attachments/assets/4da02267-1b7e-416b-bc2b-6bc70dee41dd" />
+  <img width="1919" height="828" alt="Screenshot 2026-06-29 143541" src="https://github.com/user-attachments/assets/ae95a721-2bbc-467b-afef-5d9aa0994535" />
+
+
 </p>
 
 ---
