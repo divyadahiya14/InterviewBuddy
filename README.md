@@ -52,10 +52,24 @@ Below is a visual walkthrough of the platform. You can replace these placeholder
 
 </p>
 
-### 4. Detailed AI Performance Report
+
+### 5. Candidate Profile
 <p align="center">
   <img width="1919" height="826" alt="Screenshot 2026-06-29 143528" src="https://github.com/user-attachments/assets/4da02267-1b7e-416b-bc2b-6bc70dee41dd" />
   <img width="1919" height="828" alt="Screenshot 2026-06-29 143541" src="https://github.com/user-attachments/assets/ae95a721-2bbc-467b-afef-5d9aa0994535" />
+
+
+</p>
+### 6. Detailed AI Performance Report
+<p align="center">
+ <img width="1916" height="827" alt="Screenshot 2026-06-29 180147" src="https://github.com/user-attachments/assets/68138a7c-85a0-459d-ba2c-4fc646762776" />
+
+
+</p>
+### 7. Interviewer Dashboard
+<p align="center">
+<img width="1919" height="868" alt="image" src="https://github.com/user-attachments/assets/a0a4ba48-b989-4163-969b-58f3d33ce34e" />
+<img width="1918" height="869" alt="image" src="https://github.com/user-attachments/assets/44487b36-5fa2-4110-9f4a-c2caea205599" />
 
 
 </p>
