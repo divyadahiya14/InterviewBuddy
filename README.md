@@ -60,12 +60,16 @@ Below is a visual walkthrough of the platform. You can replace these placeholder
 
 
 </p>
+
+
 ### 6. Detailed AI Performance Report
 <p align="center">
  <img width="1916" height="827" alt="Screenshot 2026-06-29 180147" src="https://github.com/user-attachments/assets/68138a7c-85a0-459d-ba2c-4fc646762776" />
 
 
 </p>
+
+
 ### 7. Interviewer Dashboard
 <p align="center">
 <img width="1919" height="868" alt="image" src="https://github.com/user-attachments/assets/a0a4ba48-b989-4163-969b-58f3d33ce34e" />
